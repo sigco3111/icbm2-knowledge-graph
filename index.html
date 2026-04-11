@@ -354,6 +354,64 @@
             font-size: 12px;
         }
         .footer a { color: #60a5fa; text-decoration: none; }
+
+        /* ===== PERFORMANCE TAB (scoped) ===== */
+        .performance-wrapper { padding: 20px 24px; overflow-y: auto; height: calc(100vh - 56px); max-width: 960px; margin: 0 auto; }
+        .performance-wrapper::-webkit-scrollbar { width: 6px; }
+        .performance-wrapper::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+        .performance-wrapper .perf-header { text-align: center; padding: 24px 0 16px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 20px; }
+        .performance-wrapper .perf-header h1 { font-size: 1.6em; font-weight: 700; background: linear-gradient(135deg, #00ff88, #00bbff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+        .performance-wrapper .perf-subtitle { color: #667; font-size: .85em; }
+        .performance-wrapper .perf-update-time { color: #445; font-size: .78em; margin-top: 4px; }
+        .performance-wrapper .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .performance-wrapper .kpi-card { background: #111827; border-radius: 12px; padding: 20px; transition: transform .2s, box-shadow .2s; }
+        .performance-wrapper .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,255,136,.1); }
+        .performance-wrapper .kpi-label { font-size: .85em; color: #889; margin-bottom: 8px; }
+        .performance-wrapper .kpi-value { font-size: 2.2em; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
+        .performance-wrapper .kpi-progress-bar { height: 6px; background: #1a2332; border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
+        .performance-wrapper .kpi-progress-fill { height: 100%; border-radius: 3px; transition: width .6s ease; }
+        .performance-wrapper .kpi-sub { font-size: .75em; color: #556; }
+        .performance-wrapper .chart-container { background: #111827; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .performance-wrapper .section-title { font-size: 1.1em; font-weight: 600; margin-bottom: 16px; color: #dde; }
+        .performance-wrapper .trend-chart { width: 100%; height: auto; display: block; }
+        .performance-wrapper .bar-chart { display: flex; flex-direction: column; gap: 10px; }
+        .performance-wrapper .bar-row { display: flex; align-items: center; gap: 12px; }
+        .performance-wrapper .bar-label { width: 110px; font-size: .82em; color: #aab; text-align: right; flex-shrink: 0; }
+        .performance-wrapper .bar-track { flex: 1; height: 24px; background: #1a2332; border-radius: 4px; overflow: hidden; }
+        .performance-wrapper .bar-fill { height: 100%; border-radius: 4px; transition: width .8s ease; min-width: 2px; }
+        .performance-wrapper .bar-value { width: 60px; font-size: .85em; font-weight: 600; color: #dde; text-align: right; flex-shrink: 0; }
+        .performance-wrapper .heatmap-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+        .performance-wrapper .heatmap-cell { text-align: center; padding: 16px 8px; border-radius: 8px; transition: transform .2s; }
+        .performance-wrapper .heatmap-cell:hover { transform: scale(1.05); }
+        .performance-wrapper .heatmap-day { font-size: 1.1em; font-weight: 700; margin-bottom: 4px; }
+        .performance-wrapper .heatmap-avg { font-size: .8em; color: #ccd; }
+        .performance-wrapper .table-wrapper { overflow-x: auto; }
+        .performance-wrapper .activity-table { width: 100%; border-collapse: collapse; font-size: .85em; }
+        .performance-wrapper .activity-table th { text-align: left; padding: 10px 12px; border-bottom: 2px solid #1a2332; color: #889; font-weight: 600; font-size: .9em; }
+        .performance-wrapper .activity-table td { padding: 10px 12px; border-bottom: 1px solid #151d2b; vertical-align: middle; }
+        .performance-wrapper .date-cell { white-space: nowrap; font-weight: 600; color: #aab; }
+        .performance-wrapper .cats-cell { line-height: 2; }
+        .performance-wrapper .perf-tag { display: inline-block; padding: 1px 8px; border: 1px solid; border-radius: 4px; font-size: .9em; margin: 2px 3px; }
+        .performance-wrapper .total-cell { text-align: right; font-size: 1.1em; color: #00ff88; }
+        .performance-wrapper .kpi-goals { display: flex; flex-direction: column; gap: 16px; }
+        .performance-wrapper .kpi-goal-row {}
+        .performance-wrapper .kpi-goal-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+        .performance-wrapper .kpi-goal-cat { font-weight: 700; font-size: .85em; }
+        .performance-wrapper .kpi-goal-name { font-size: .85em; color: #aab; }
+        .performance-wrapper .kpi-goal-values { margin-left: auto; font-size: .82em; color: #667; }
+        .performance-wrapper .kpi-goal-bar { height: 10px; background: #1a2332; border-radius: 5px; overflow: hidden; margin-bottom: 4px; }
+        .performance-wrapper .kpi-goal-fill { height: 100%; border-radius: 5px; transition: width .8s ease; min-width: 2px; }
+        .performance-wrapper .kpi-goal-pct { text-align: right; font-size: .8em; font-weight: 600; color: #889; }
+        .performance-wrapper .perf-footer { text-align: center; padding: 20px 0; color: #334; font-size: .75em; border-top: 1px solid #1a2332; margin-top: 20px; }
+        @media (max-width: 600px) {
+            .performance-wrapper .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .performance-wrapper .kpi-value { font-size: 1.6em; }
+            .performance-wrapper .perf-header h1 { font-size: 1.4em; }
+            .performance-wrapper .bar-label { width: 80px; font-size: .75em; }
+            .performance-wrapper .heatmap-cell { padding: 10px 4px; }
+            .performance-wrapper .heatmap-day { font-size: .9em; }
+            .performance-wrapper .perf-tag { font-size: .8em; padding: 1px 5px; }
+        }
     </style>
 </head>
 <body>
@@ -366,8 +424,9 @@
         <nav>
             <button class="active" onclick="switchTab('graph')">🧠 Knowledge Graph</button>
             <button onclick="switchTab('dashboard')">📊 Dashboard</button>
+            <button onclick="switchTab('performance')">📈 자동화 성과</button>
             <button onclick="switchTab('skills')">🤖 Skills</button>
-            <button onclick="switchTab('models')">📈 AI Models</button>
+            <button onclick="switchTab('models')">🧪 AI Models</button>
         </nav>
     </div>
 
@@ -492,6 +551,172 @@
                 </div>
             </div>
         </div>
+
+        <!-- Performance Section (자동화 성과) -->
+        <div id="sec-performance" class="section">
+            <div class="performance-wrapper">
+                <div class="perf-header">
+                    <h1>ICBM2 자동화 대시보드</h1>
+                    <div class="perf-subtitle">Notion 기반 자동화 성과 추적</div>
+                    <div class="perf-update-time">마지막 업데이트: 2026-04-12 07:55 KST</div>
+                </div>
+
+                <div class="kpi-grid"><div class="kpi-card" style="border-left:4px solid #00ff88">
+                    <div class="kpi-label">SoS 제출</div>
+                    <div class="kpi-value" style="color:#00ff88">61</div>
+                    <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:10.5%;background:#00ff88"></div></div>
+                    <div class="kpi-sub">목표: 200 개</div>
+                </div><div class="kpi-card" style="border-left:4px solid #00bbff">
+                    <div class="kpi-label">봇마당 게시글</div>
+                    <div class="kpi-value" style="color:#00bbff">42</div>
+                    <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:18.33%;background:#00bbff"></div></div>
+                    <div class="kpi-sub">목표: 60 개</div>
+                </div><div class="kpi-card" style="border-left:4px solid #ff6b9d">
+                    <div class="kpi-label">아이디어 노트</div>
+                    <div class="kpi-value" style="color:#ff6b9d">2</div>
+                    <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:0%;background:#ff6b9d"></div></div>
+                    <div class="kpi-sub">목표: 60 개</div>
+                </div><div class="kpi-card" style="border-left:4px solid #ffcc00">
+                    <div class="kpi-label">크론잡 정상률</div>
+                    <div class="kpi-value" style="color:#ffcc00">100%</div>
+                    <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:100%;background:#ffcc00"></div></div>
+                    <div class="kpi-sub">목표: 90 %</div>
+                </div></div>
+
+                <div class="chart-container">
+                    <h3 class="section-title">📈 활동 트렌드 (최근 30일)</h3>
+                    <svg viewBox="0 0 700 250" class="trend-chart" preserveAspectRatio="xMidYMid meet">
+                        <rect x="50" y="2" width="12" height="12" rx="2" fill="#00ff88" opacity="0.85"/><text x="66" y="12" fill="#ccc" font-size="11">SoS 제출</text><rect x="128" y="2" width="12" height="12" rx="2" fill="#00bbff" opacity="0.85"/><text x="144" y="12" fill="#ccc" font-size="11">봇마당 게시글</text><rect x="213" y="2" width="12" height="12" rx="2" fill="#ff6b9d" opacity="0.85"/><text x="229" y="12" fill="#ccc" font-size="11">아이디어 노트</text><rect x="298" y="2" width="12" height="12" rx="2" fill="#ffcc00" opacity="0.85"/><text x="314" y="12" fill="#ccc" font-size="11">크론잡 정상률</text>
+                        <line x1="50" y1="30" x2="50" y2="210" stroke="#333" stroke-width="1"/>
+                        <line x1="50" y1="210" x2="680" y2="210" stroke="#333" stroke-width="1"/>
+                        <line x1="50" y1="75.0" x2="680" y2="75.0" stroke="#222" stroke-width="0.5" stroke-dasharray="4"/><line x1="50" y1="120.0" x2="680" y2="120.0" stroke="#222" stroke-width="0.5" stroke-dasharray="4"/><line x1="50" y1="165.0" x2="680" y2="165.0" stroke="#222" stroke-width="0.5" stroke-dasharray="4"/>
+                        <polyline points="50.0,210.0 260.0,210.0 470.0,198.7 680.0,201.6" fill="none" stroke="#00ff88" stroke-width="2.5" opacity="0.85"/><polyline points="50.0,210.0 260.0,206.1 470.0,205.5 680.0,204.8" fill="none" stroke="#00bbff" stroke-width="2.5" opacity="0.85"/><polyline points="50.0,209.4 260.0,210.0 470.0,210.0 680.0,210.0" fill="none" stroke="#ff6b9d" stroke-width="2.5" opacity="0.85"/><polyline points="50.0,30.0 260.0,138.7 470.0,134.2 680.0,210.0" fill="none" stroke="#ffcc00" stroke-width="2.5" opacity="0.85"/>
+                        <text x="42" y="34" text-anchor="end" fill="#888" font-size="11">558</text><text x="42" y="214" text-anchor="end" fill="#888" font-size="11">0</text>
+                        <text x="50" y="245" text-anchor="middle" fill="#888" font-size="11">04-09</text><text x="260" y="245" text-anchor="middle" fill="#888" font-size="11">04-10</text><text x="470" y="245" text-anchor="middle" fill="#888" font-size="11">04-11</text><text x="680" y="245" text-anchor="middle" fill="#888" font-size="11">04-12</text>
+                    </svg>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="section-title">📊 카테고리별 활동량</h3>
+                    <div class="bar-chart"><div class="bar-row">
+                        <span class="bar-label">크론잡</span>
+                        <div class="bar-track"><div class="bar-fill" style="width:100.0%;background:#ffcc00"></div></div>
+                        <span class="bar-value">1,014</span>
+                    </div><div class="bar-row">
+                        <span class="bar-label">시스템</span>
+                        <div class="bar-track"><div class="bar-fill" style="width:62.327416173570015%;background:#aa88ff"></div></div>
+                        <span class="bar-value">632</span>
+                    </div><div class="bar-row">
+                        <span class="bar-label">Ship or Slop</span>
+                        <div class="bar-track"><div class="bar-fill" style="width:6.01577909270217%;background:#00ff88"></div></div>
+                        <span class="bar-value">61</span>
+                    </div><div class="bar-row">
+                        <span class="bar-label">Tistory</span>
+                        <div class="bar-track"><div class="bar-fill" style="width:5.621301775147929%;background:#ff8844"></div></div>
+                        <span class="bar-value">57</span>
+                    </div><div class="bar-row">
+                        <span class="bar-label">봇마당</span>
+                        <div class="bar-track"><div class="bar-fill" style="width:4.142011834319527%;background:#00bbff"></div></div>
+                        <span class="bar-value">42</span>
+                    </div><div class="bar-row">
+                        <span class="bar-label">아이디어 노트</span>
+                        <div class="bar-track"><div class="bar-fill" style="width:0.19723865877712032%;background:#ff6b9d"></div></div>
+                        <span class="bar-value">2</span>
+                    </div></div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="section-title">📅 요일별 활동 패턴 (평균)</h3>
+                    <div class="heatmap-grid"><div class="heatmap-cell" style="background:rgb(20,30,40);border:2px solid #333">
+                        <div class="heatmap-day">월</div>
+                        <div class="heatmap-avg">0</div>
+                    </div><div class="heatmap-cell" style="background:rgb(20,30,40);border:2px solid #333">
+                        <div class="heatmap-day">화</div>
+                        <div class="heatmap-avg">0</div>
+                    </div><div class="heatmap-cell" style="background:rgb(20,30,40);border:2px solid #333">
+                        <div class="heatmap-day">수</div>
+                        <div class="heatmap-avg">0</div>
+                    </div><div class="heatmap-cell" style="background:rgb(20,255,136);border:2px solid #00ff88">
+                        <div class="heatmap-day">목</div>
+                        <div class="heatmap-avg">80.0</div>
+                    </div><div class="heatmap-cell" style="background:rgb(20,111,74);border:2px solid #333">
+                        <div class="heatmap-day">금</div>
+                        <div class="heatmap-avg">29.1</div>
+                    </div><div class="heatmap-cell" style="background:rgb(20,96,68);border:2px solid #333">
+                        <div class="heatmap-day">토</div>
+                        <div class="heatmap-avg">23.7</div>
+                    </div><div class="heatmap-cell" style="background:rgb(20,44,46);border:2px solid #333">
+                        <div class="heatmap-day">일</div>
+                        <div class="heatmap-avg">5.2</div>
+                    </div></div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="section-title">🕐 최근 활동 상세</h3>
+                    <div class="table-wrapper">
+                        <table class="activity-table">
+                            <thead><tr><th>날짜</th><th>카테고리별 활동</th><th>합계</th></tr></thead>
+                            <tbody><tr>
+                                <td class="date-cell">2026-04-12</td>
+                                <td class="cats-cell"><span class="perf-tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 26</span> <span class="perf-tag" style="color:#00bbff;border-color:#00bbff40">봇마당 게시글: 16</span> <span class="perf-tag" style="color:#ff6b9d;border-color:#ff6b9d40">아이디어 노트: 0</span> <span class="perf-tag" style="color:#ffcc00;border-color:#ffcc0040">크론잡 정상률: 0</span> </td>
+                                <td class="total-cell"><strong>42</strong></td>
+                            </tr><tr>
+                                <td class="date-cell">2026-04-11</td>
+                                <td class="cats-cell"><span class="perf-tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 35</span> <span class="perf-tag" style="color:#00bbff;border-color:#00bbff40">봇마당 게시글: 14</span> <span class="perf-tag" style="color:#ff6b9d;border-color:#ff6b9d40">아이디어 노트: 0</span> <span class="perf-tag" style="color:#ffcc00;border-color:#ffcc0040">크론잡 정상률: 235</span> </td>
+                                <td class="total-cell"><strong>284</strong></td>
+                            </tr><tr>
+                                <td class="date-cell">2026-04-10</td>
+                                <td class="cats-cell"><span class="perf-tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 0</span> <span class="perf-tag" style="color:#00bbff;border-color:#00bbff40">봇마당 게시글: 12</span> <span class="perf-tag" style="color:#ff6b9d;border-color:#ff6b9d40">아이디어 노트: 0</span> <span class="perf-tag" style="color:#ffcc00;border-color:#ffcc0040">크론잡 정상률: 221</span> </td>
+                                <td class="total-cell"><strong>233</strong></td>
+                            </tr><tr>
+                                <td class="date-cell">2026-04-09</td>
+                                <td class="cats-cell"><span class="perf-tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 0</span> <span class="perf-tag" style="color:#00bbff;border-color:#00bbff40">봇마당 게시글: 0</span> <span class="perf-tag" style="color:#ff6b9d;border-color:#ff6b9d40">아이디어 노트: 2</span> <span class="perf-tag" style="color:#ffcc00;border-color:#ffcc0040">크론잡 정상률: 558</span> </td>
+                                <td class="total-cell"><strong>560</strong></td>
+                            </tr></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="section-title">🎯 월간 KPI 목표 달성률</h3>
+                    <div class="kpi-goals"><div class="kpi-goal-row">
+                        <div class="kpi-goal-header">
+                            <span class="kpi-goal-cat" style="color:#ff6b9d">아이디어 노트</span>
+                            <span class="kpi-goal-name">작성 수</span>
+                            <span class="kpi-goal-values">0 / 60 개</span>
+                        </div>
+                        <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:0%;background:#ff6b9d"></div></div>
+                        <div class="kpi-goal-pct">0.0%</div>
+                    </div><div class="kpi-goal-row">
+                        <div class="kpi-goal-header">
+                            <span class="kpi-goal-cat" style="color:#00bbff">봇마당</span>
+                            <span class="kpi-goal-name">게시글</span>
+                            <span class="kpi-goal-values">11 / 60 개</span>
+                        </div>
+                        <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:18.33%;background:#00bbff"></div></div>
+                        <div class="kpi-goal-pct">18.3%</div>
+                    </div><div class="kpi-goal-row">
+                        <div class="kpi-goal-header">
+                            <span class="kpi-goal-cat" style="color:#00ff88">Ship or Slop</span>
+                            <span class="kpi-goal-name">아이디어 제출</span>
+                            <span class="kpi-goal-values">21 / 200 개</span>
+                        </div>
+                        <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:10.5%;background:#00ff88"></div></div>
+                        <div class="kpi-goal-pct">10.5%</div>
+                    </div><div class="kpi-goal-row">
+                        <div class="kpi-goal-header">
+                            <span class="kpi-goal-cat" style="color:#ffcc00">크론잡</span>
+                            <span class="kpi-goal-name">정상 작동률</span>
+                            <span class="kpi-goal-values">100 / 90 %</span>
+                        </div>
+                        <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:100%;background:#ffcc00"></div></div>
+                        <div class="kpi-goal-pct">100.0%</div>
+                    </div></div>
+                </div>
+
+                <div class="perf-footer">ICBM2 Dashboard v1.0 · Powered by Notion API · Auto-deployed via GitHub Pages</div>
+            </div>
+        </div>
     </main>
 
     <script>
@@ -509,6 +734,7 @@
                 simulation.alpha(0.3).restart();
             }, 100);
         }
+        // performance 탭은 정적 HTML이므로 별도 초기화 불필요
     }
 
     // ===== KNOWLEDGE GRAPH =====
