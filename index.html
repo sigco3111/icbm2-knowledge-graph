@@ -422,17 +422,17 @@
         </div>
         <div class="status-dot" title="System Online"></div>
         <nav>
-            <button class="active" onclick="switchTab('graph')">🧠 Knowledge Graph</button>
-            <button onclick="switchTab('dashboard')">📊 Dashboard</button>
+            <button class="active" onclick="switchTab('dashboard')">📊 Dashboard</button>
             <button onclick="switchTab('performance')">📈 자동화 성과</button>
             <button onclick="switchTab('skills')">🤖 Skills</button>
             <button onclick="switchTab('models')">🧪 AI Models</button>
+            <button onclick="switchTab('graph')">🧠 Knowledge Graph</button>
         </nav>
     </div>
 
     <main>
         <!-- Knowledge Graph Section -->
-        <div id="sec-graph" class="section active">
+        <div id="sec-graph" class="section">
             <svg id="graph"></svg>
             <input type="text" id="graph-search" placeholder="🔍 노드 검색...">
             <div id="tooltip"></div>
@@ -453,7 +453,7 @@
         </div>
 
         <!-- Dashboard Section -->
-        <div id="sec-dashboard" class="section">
+        <div id="sec-dashboard" class="section active">
             <div class="dashboard">
                 <div class="stats-grid">
                     <div class="stat-card">
