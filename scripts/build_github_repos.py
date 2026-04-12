@@ -46,7 +46,7 @@ for cat, names in cat_items.items():
 # Fetch repos
 print("Fetching repos from GitHub...")
 result = subprocess.run(
-    ['gh', 'repo', 'list', '--limit', '100', '--json',
+    ['gh', 'repo', 'list', '--limit', '200', '--json',
      'name,description,url,stargazerCount,forkCount,primaryLanguage,updatedAt,createdAt,isPrivate,homepageUrl'],
     capture_output=True, text=True
 )
