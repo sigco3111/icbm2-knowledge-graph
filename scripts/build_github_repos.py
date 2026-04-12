@@ -148,40 +148,66 @@ for repo in repos:
         repo['is_stale'] = True
 
 # ─── Step 4: Fetch recent commit + README for each repo ───
-print("🔄 Fetching commits and READMEs...")
-for i, repo in enumerate(repos):
-    name = repo['name']
-    full_name = f"repos/sigco3111/{name}"
+# Support --fast flag to skip commit/README fetching (use cached data)
+FAST_MODE = '--fast' in sys.argv
 
-    # Fetch latest commit
-    commit_data = run_gh_json([f"{full_name}/commits?per_page=1"])
-    if commit_data and isinstance(commit_data, list) and len(commit_data) > 0:
-        c = commit_data[0]
-        repo['last_commit_sha'] = c['sha'][:7]
-        repo['last_commit_msg'] = c['commit']['message'].split('\n')[0]
-        repo['last_commit_date'] = c['commit']['committer']['date']
-    else:
-        repo['last_commit_sha'] = None
-        repo['last_commit_msg'] = None
-        repo['last_commit_date'] = None
+if FAST_MODE and os.path.exists(CACHE_FILE):
+    print("⚡ Fast mode: loading commits/READMEs from cache...")
+    try:
+        with open(CACHE_FILE, 'r') as f:
+            cached_repos = {r['name']: r for r in json.load(f)}
+        for repo in repos:
+            cached = cached_repos.get(repo['name'])
+            if cached:
+                repo['last_commit_sha'] = cached.get('last_commit_sha')
+                repo['last_commit_msg'] = cached.get('last_commit_msg')
+                repo['last_commit_date'] = cached.get('last_commit_date')
+                repo['readme_preview'] = cached.get('readme_preview')
+            else:
+                repo['last_commit_sha'] = None
+                repo['last_commit_msg'] = None
+                repo['last_commit_date'] = None
+                repo['readme_preview'] = None
+        print(f"  Loaded from cache ({len(cached_repos)} repos)")
+    except Exception as e:
+        print(f"  Cache error: {e}, falling back to full fetch")
+        FAST_MODE = False
 
-    # Fetch README
-    readme_raw = run_gh_raw([f"{full_name}/readme", '--jq', '.content'])
-    if readme_raw:
-        try:
-            readme_text = base64.b64decode(readme_raw).decode('utf-8', errors='replace')
-            repo['readme_preview'] = readme_text[:500]
-        except Exception:
+if not FAST_MODE:
+    print("🔄 Fetching commits and READMEs...")
+    for i, repo in enumerate(repos):
+        name = repo['name']
+        full_name = f"repos/sigco3111/{name}"
+
+        # Fetch latest commit
+        commit_data = run_gh_json([f"{full_name}/commits?per_page=1"])
+        if commit_data and isinstance(commit_data, list) and len(commit_data) > 0:
+            c = commit_data[0]
+            repo['last_commit_sha'] = c['sha'][:7]
+            repo['last_commit_msg'] = c['commit']['message'].split('\n')[0]
+            repo['last_commit_date'] = c['commit']['committer']['date']
+        else:
+            repo['last_commit_sha'] = None
+            repo['last_commit_msg'] = None
+            repo['last_commit_date'] = None
+
+        # Fetch README
+        readme_raw = run_gh_raw([f"{full_name}/readme", '--jq', '.content'])
+        if readme_raw:
+            try:
+                readme_text = base64.b64decode(readme_raw).decode('utf-8', errors='replace')
+                repo['readme_preview'] = readme_text[:500]
+            except Exception:
+                repo['readme_preview'] = None
+        else:
             repo['readme_preview'] = None
-    else:
-        repo['readme_preview'] = None
 
-    if (i + 1) % 10 == 0 or i == len(repos) - 1:
-        print(f"  Progress: {i+1}/{len(repos)} repos")
+        if (i + 1) % 10 == 0 or i == len(repos) - 1:
+            print(f"  Progress: {i+1}/{len(repos)} repos")
 
-    time.sleep(0.5)  # Rate limit safety
+        time.sleep(0.5)  # Rate limit safety
 
-print("✅ Commits and READMEs fetched")
+    print("✅ Commits and READMEs fetched")
 
 # ─── Step 5: Load previous cache and detect new repos ───
 prev_names = set()

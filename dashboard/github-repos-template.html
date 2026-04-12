@@ -73,29 +73,32 @@ a{color:#00ff88;text-decoration:none}
 .cat-pill .pill-count{font-size:.7em;color:#556;margin-left:4px}
 
 /* Repo Grid */
-.repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
-.repo-card{background:#111827;border-radius:10px;padding:14px 16px;transition:transform .2s,box-shadow .2s,border-color .2s;border:1px solid #1e293b;cursor:pointer}
+.repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.repo-card{background:#111827;border-radius:12px;padding:16px 18px;transition:transform .2s,box-shadow .2s,border-color .2s;border:1px solid #1e293b;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .repo-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.3);border-color:#00ff88}
-.repo-card.stale{border-color:#fb923c}
-.repo-card.stale:hover{border-color:#fbbf24}
-.repo-card.new-repo{border-color:#a78bfa}
-.repo-name{font-weight:600;font-size:.95em;color:#dde;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-.repo-name a{color:#dde}
-.repo-name a:hover{color:#00ff88}
-.vis-badge{font-size:.65em;padding:1px 6px;border-radius:4px;font-weight:500}
+.repo-card.stale{border-left:3px solid #fb923c}
+.repo-card.stale:hover{border-color:#fbbf24;border-left-color:#fbbf24}
+.repo-card.new-repo{border-left:3px solid #a78bfa}
+.repo-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
+.repo-title{flex:1;min-width:0}
+.repo-title a{font-weight:700;font-size:1em;color:#dde;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.3}
+.repo-title a:hover{color:#00ff88}
+.repo-badges{display:flex;gap:4px;flex-shrink:0;align-items:center}
+.vis-badge{font-size:.62em;padding:2px 7px;border-radius:4px;font-weight:600;letter-spacing:.3px}
 .vis-public{background:rgba(0,255,136,.1);color:#00ff88}
 .vis-private{background:rgba(248,113,113,.1);color:#f87171}
-.repo-desc{font-size:.82em;color:#778;margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.repo-meta{display:flex;align-items:center;gap:10px;font-size:.78em;color:#556;flex-wrap:wrap}
+.stale-badge{color:#fb923c;font-size:.82em}
+.new-badge{color:#a78bfa;font-size:.68em;font-weight:700}
+.repo-desc{font-size:.82em;color:#778;margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.4}
+.repo-meta{display:flex;align-items:center;gap:10px;font-size:.76em;color:#556;flex-wrap:wrap}
 .repo-meta .lang{display:flex;align-items:center;gap:4px}
 .repo-meta .lang-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 .repo-meta .star,.repo-meta .fork,.repo-meta .issues{display:flex;align-items:center;gap:3px}
-.repo-meta .date{margin-left:auto;font-size:.72em}
-.stale-badge{color:#fb923c;font-size:.78em}
-.new-badge{color:#a78bfa;font-size:.72em;font-weight:600}
-.repo-topics{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
-.topic-tag{font-size:.68em;padding:2px 8px;border-radius:10px;background:#1a2332;color:#667}
-.commit-info{font-size:.72em;color:#556;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.repo-meta .date{margin-left:auto;font-size:.7em}
+.repo-topics{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.topic-tag{font-size:.66em;padding:2px 8px;border-radius:10px;background:#1a2332;color:#667}
+.commit-info{font-size:.7em;color:#556;margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.repo-category-label{font-size:.66em;color:#556;background:#0d1117;padding:2px 8px;border-radius:8px;display:inline-block;margin-top:6px}
 
 /* Modal */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:1000;justify-content:center;align-items:flex-start;padding:40px 16px;overflow-y:auto}
@@ -135,17 +138,52 @@ a{color:#00ff88;text-decoration:none}
 .legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
 
 /* Responsive */
-@media(max-width:900px){
+@media(max-width:1024px){
+  .charts-row{grid-template-columns:repeat(2,1fr)}
+  .heatmap-card{grid-column:1/-1}
+}
+@media(max-width:768px){
+  .page{padding:12px 12px 40px}
+  .header{padding:16px 0 14px}
+  .header h1{font-size:1.4em}
   .charts-row{grid-template-columns:1fr}
   .heatmap-card{grid-column:auto}
+  .stats-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .stat-card{padding:12px 8px}
+  .stat-value{font-size:1.5em}
+  .stat-label{font-size:.68em}
+  .top-grid{grid-template-columns:1fr 1fr}
+  .top-card{padding:12px}
+  .controls{gap:8px}
+  .vis-filters{width:100%;justify-content:center}
+  .sort-select{width:100%}
+  .search-input{font-size:16px} /* Prevent iOS zoom */
+  .cat-pills{gap:5px}
+  .cat-pill{padding:4px 10px;font-size:.72em}
+  .repo-grid{grid-template-columns:1fr;gap:10px}
+  .repo-card{padding:14px 16px}
+  .modal{padding:20px 16px;border-radius:12px}
+  .modal-overlay{padding:20px 10px}
+  .modal-name{font-size:1.1em}
+  .modal-meta-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .modal-meta-item{padding:8px 10px}
+  .modal-readme{max-height:250px;font-size:.78em}
+  .modal-links{flex-wrap:wrap}
+  .modal-link{padding:7px 14px;font-size:.82em}
 }
-@media(max-width:600px){
-  .repo-grid{grid-template-columns:1fr}
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
+@media(max-width:480px){
+  .header h1{font-size:1.2em}
+  .header .subtitle{font-size:.78em}
+  .profile-badge{padding:5px 12px;font-size:.76em}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .stat-value{font-size:1.3em}
   .top-grid{grid-template-columns:1fr}
   .controls{flex-direction:column}
-  .search-box{min-width:auto}
-  .modal{padding:20px}
+  .search-box{min-width:auto;width:100%}
+  .sort-select{width:100%}
+  .vis-filters{justify-content:flex-start}
+  .repo-meta .date{margin-left:0;width:100%;margin-top:2px}
+  .modal-meta-grid{grid-template-columns:repeat(2,1fr)}
 }
 
 /* Scrollbar */
@@ -360,14 +398,16 @@ function renderRepos() {
     if (r.is_stale) classes.push('stale');
     if (r.new_repo) classes.push('new-repo');
     const topics = (r.topics||[]).slice(0,3).map(t => `<span class="topic-tag">${t}</span>`).join('');
-    const commitLine = r.last_commit_msg ? `<div class="commit-info"><span style="color:#00ff88;font-family:monospace">${r.last_commit_sha||''}</span> ${r.last_commit_msg}</div>` : '';
+    const commitLine = r.last_commit_msg ? `<div class="commit-info"><span style="color:#00ff88;font-family:monospace">${r.last_commit_sha||''}</span> ${escHtml(r.last_commit_msg)}</div>` : '';
 
     return `<div class="${classes.join(' ')}" onclick="showModal('${r.name}')">
-      <div class="repo-name">
-        <a href="${r.url}" target="_blank" onclick="event.stopPropagation()">${r.name}</a>
-        <span class="vis-badge ${r.isPrivate?'vis-private':'vis-public'}">${r.isPrivate?'Private':'Public'}</span>
-        ${r.new_repo ? '<span class="new-badge">🆕 NEW</span>' : ''}
-        ${r.is_stale ? '<span class="stale-badge">⚠️</span>' : ''}
+      <div class="repo-card-header">
+        <div class="repo-title"><a href="${r.url}" target="_blank" onclick="event.stopPropagation()">${escHtml(r.name)}</a></div>
+        <div class="repo-badges">
+          <span class="vis-badge ${r.isPrivate?'vis-private':'vis-public'}">${r.isPrivate?'Private':'Public'}</span>
+          ${r.new_repo ? '<span class="new-badge">🆕</span>' : ''}
+          ${r.is_stale ? '<span class="stale-badge">⚠️</span>' : ''}
+        </div>
       </div>
       ${r.description ? `<div class="repo-desc">${escHtml(r.description)}</div>` : ''}
       <div class="repo-meta">
@@ -379,6 +419,7 @@ function renderRepos() {
       </div>
       ${topics ? `<div class="repo-topics">${topics}</div>` : ''}
       ${commitLine}
+      <span class="repo-category-label">${r.category}</span>
     </div>`;
   }).join('');
 }
