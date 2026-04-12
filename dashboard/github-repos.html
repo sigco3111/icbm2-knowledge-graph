@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📦 GitHub Repositories | ICBM2</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#0a0e17;color:#e0e0e0;line-height:1.6;min-height:100vh}
+a{color:#00ff88;text-decoration:none}
+.page{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#667;font-size:.85em;margin-bottom:16px}
+.back-link:hover{color:#00ff88}
+.header{text-align:center;padding:24px 0 20px;border-bottom:1px solid #1a2332;margin-bottom:24px}
+.header h1{font-size:1.8em;font-weight:700;background:linear-gradient(135deg,#00ff88,#00bbff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.header .subtitle{color:#667;font-size:.85em}
+
+/* Stats Grid */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
+.stat-card{background:#111827;border-radius:12px;padding:16px;text-align:center}
+.stat-value{font-size:2em;font-weight:800;letter-spacing:-1px}
+.stat-label{font-size:.78em;color:#667;margin-top:4px}
+.stat-card.green .stat-value{color:#00ff88}
+.stat-card.blue .stat-value{color:#00bbff}
+.stat-card.yellow .stat-value{color:#fbbf24}
+.stat-card.red .stat-value{color:#f87171}
+.stat-card.purple .stat-value{color:#a78bfa}
+.stat-card.orange .stat-value{color:#fb923c}
+
+/* Category Cards */
+.cat-section{margin-bottom:20px}
+.cat-title{font-size:1.05em;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cat-count{font-size:.75em;color:#556;background:#1a2332;padding:2px 8px;border-radius:10px}
+.repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.repo-card{background:#111827;border-radius:10px;padding:14px 16px;transition:transform .2s,box-shadow .2s;border:1px solid transparent}
+.repo-card:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.3);border-color:#1a2332}
+.repo-name{font-weight:600;font-size:.95em;color:#dde;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.repo-name a:hover{color:#00ff88}
+.repo-name .vis{font-size:.7em;padding:1px 6px;border-radius:4px;font-weight:500}
+.vis-public{background:rgba(0,255,136,.1);color:#00ff88}
+.vis-private{background:rgba(248,113,113,.1);color:#f87171}
+.repo-desc{font-size:.82em;color:#778;margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.repo-meta{display:flex;align-items:center;gap:12px;font-size:.78em;color:#556;flex-wrap:wrap}
+.repo-meta .lang{display:flex;align-items:center;gap:4px}
+.repo-meta .lang-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.repo-meta .star,.repo-meta .fork{display:flex;align-items:center;gap:3px}
+.repo-meta .date{margin-left:auto}
+.repo-link{color:#556;font-size:.82em;display:flex;align-items:center;gap:4px}
+.repo-link:hover{color:#00ff88}
+.hp-link{color:#556;font-size:.75em;margin-left:4px}
+.hp-link:hover{color:#fbbf24}
+
+/* Lang colors */
+.lang-TypeScript{background:#3178c6}
+.lang-JavaScript{background:#f1e05a}
+.lang-Python{background:#3572a5}
+.lang-HTML{background:#e34c26}
+.lang-N-A{background:#555}
+
+/* Top repos */
+.top-section{margin-bottom:24px}
+.top-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.top-card{background:linear-gradient(135deg,#111827,#1a2332);border-radius:10px;padding:16px;border:1px solid #1e293b}
+.top-rank{font-size:1.5em;font-weight:800;color:#fbbf24;margin-bottom:4px}
+.top-name{font-weight:700;font-size:1em;color:#dde;margin-bottom:4px}
+.top-name a:hover{color:#00ff88}
+.top-desc{font-size:.82em;color:#778;margin-bottom:8px}
+.top-stats{display:flex;gap:12px;font-size:.8em;color:#667}
+
+/* Filter */
+.filter-bar{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:6px 14px;border-radius:20px;border:1px solid #1e293b;background:#111827;color:#889;font-size:.82em;cursor:pointer;transition:all .2s}
+.filter-btn:hover,.filter-btn.active{background:#1a2332;color:#00ff88;border-color:#00ff88}
+
+/* Search */
+.search-box{margin-bottom:20px}
+.search-input{width:100%;max-width:400px;padding:10px 16px;border-radius:10px;border:1px solid #1e293b;background:#111827;color:#dde;font-size:.9em;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:#00ff88}
+.search-input::placeholder{color:#445}
+
+@media(max-width:600px){
+  .repo-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <a href="../index.html" class="back-link">← ICBM2 Command Center</a>
+  <div class="header">
+    <h1>📦 GitHub Repositories</h1>
+    <div class="subtitle">sigco3111의 GitHub 저장소 대시보드</div>
+  </div>
+
+  <div class="stats-grid" id="stats"></div>
+
+  <div class="top-section">
+    <div class="cat-title">🏆 인기 저장소</div>
+    <div class="top-grid" id="top-repos"></div>
+  </div>
+
+  <div class="search-box">
+    <input type="text" class="search-input" id="search" placeholder="🔍 저장소 검색...">
+  </div>
+
+  <div class="filter-bar" id="filters"></div>
+
+  <div id="categories"></div>
+</div>
+
+<script>
+const REPOS = [
+  {
+    "createdAt": "2025-05-26T08:28:49Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://dev-canvas-pi.vercel.app/",
+    "isPrivate": false,
+    "name": "DevCanvas",
+    "stargazerCount": 0,
+    "updatedAt": "2025-08-12T06:48:40Z",
+    "url": "https://github.com/sigco3111/DevCanvas",
+    "language": "TypeScript",
+    "category": "🌐 웹 프로젝트"
+  },
+  {
+    "createdAt": "2025-09-04T01:50:49Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://kakao-notion.vercel.app",
+    "isPrivate": false,
+    "name": "KakaoSplit",
+    "stargazerCount": 0,
+    "updatedAt": "2025-09-04T08:36:58Z",
+    "url": "https://github.com/sigco3111/KakaoSplit",
+    "language": "TypeScript",
+    "category": "🌐 웹 프로젝트"
+  },
+  {
+    "createdAt": "2025-07-03T23:44:21Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://astrocartography.vercel.app",
+    "isPrivate": false,
+    "name": "astrocartography",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-08T23:26:33Z",
+    "url": "https://github.com/sigco3111/astrocartography",
+    "language": "TypeScript",
+    "category": "🌐 웹 프로젝트"
+  },
+  {
+    "createdAt": "2025-08-06T03:43:01Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "",
+    "isPrivate": false,
+    "name": "blog",
+    "stargazerCount": 0,
+    "updatedAt": "2025-08-12T05:04:55Z",
+    "url": "https://github.com/sigco3111/blog",
+    "language": "HTML",
+    "category": "🌐 웹 프로젝트"
+  },
+  {
+    "createdAt": "2025-09-07T22:04:47Z",
+    "description": "출처 : https://muzbox.tistory.com/483652",
+    "forkCount": 1,
+    "homepageUrl": "https://keyword-fighter.vercel.app",
+    "isPrivate": false,
+    "name": "keyword_fighter",
+    "stargazerCount": 0,
+    "updatedAt": "2025-09-07T22:06:03Z",
+    "url": "https://github.com/sigco3111/keyword_fighter",
+    "language": "TypeScript",
+    "category": "🌐 웹 프로젝트"
+  },
+  {
+    "createdAt": "2025-08-11T22:33:24Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "",
+    "isPrivate": false,
+    "name": "pages",
+    "stargazerCount": 0,
+    "updatedAt": "2025-08-12T05:05:52Z",
+    "url": "https://github.com/sigco3111/pages",
+    "language": "JavaScript",
+    "category": "🌐 웹 프로젝트"
+  },
+  {
+    "createdAt": "2025-07-27T22:48:43Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://terrain-one.vercel.app",
+    "isPrivate": false,
+    "name": "terrain",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-27T22:56:27Z",
+    "url": "https://github.com/sigco3111/terrain",
+    "language": "TypeScript",
+    "category": "🌐 웹 프로젝트"
+  },
+  {
+    "createdAt": "2025-12-03T05:05:28Z",
+    "description": "테스트용 웹페이지",
+    "forkCount": 0,
+    "homepageUrl": "https://ubobtest.vercel.app",
+    "isPrivate": false,
+    "name": "ubobtest",
+    "stargazerCount": 0,
+    "updatedAt": "2025-12-03T05:48:46Z",
+    "url": "https://github.com/sigco3111/ubobtest",
+    "language": "HTML",
+    "category": "🌐 웹 프로젝트"
+  },
+  {
+    "createdAt": "2025-07-27T23:00:16Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://world-data-map.vercel.app",
+    "isPrivate": false,
+    "name": "world-data-map",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-27T23:10:42Z",
+    "url": "https://github.com/sigco3111/world-data-map",
+    "language": "TypeScript",
+    "category": "🌐 웹 프로젝트"
+  },
+  {
+    "createdAt": "2025-06-15T23:07:29Z",
+    "description": "",
+    "forkCount": 2,
+    "homepageUrl": "https://terrarium-flame.vercel.app",
+    "isPrivate": false,
+    "name": "terrarium",
+    "stargazerCount": 2,
+    "updatedAt": "2025-08-31T10:53:31Z",
+    "url": "https://github.com/sigco3111/terrarium",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-30T02:50:41Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://real-estate-king.vercel.app",
+    "isPrivate": false,
+    "name": "real-estate-king",
+    "stargazerCount": 1,
+    "updatedAt": "2026-01-15T08:25:14Z",
+    "url": "https://github.com/sigco3111/real-estate-king",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-21T01:33:51Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://2048-orcin-nine.vercel.app",
+    "isPrivate": false,
+    "name": "2048",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-21T02:08:29Z",
+    "url": "https://github.com/sigco3111/2048",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-16T22:11:13Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://3d-fractal-one.vercel.app",
+    "isPrivate": false,
+    "name": "3d-fractal",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-24T23:21:55Z",
+    "url": "https://github.com/sigco3111/3d-fractal",
+    "language": "HTML",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-20T07:20:31Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://3d-physics-lab-fawn.vercel.app",
+    "isPrivate": false,
+    "name": "3d-physics-lab",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-20T07:45:18Z",
+    "url": "https://github.com/sigco3111/3d-physics-lab",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-18T01:45:01Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://age-of-exploration-lite.vercel.app",
+    "isPrivate": false,
+    "name": "age-of-exploration-lite",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-18T02:47:53Z",
+    "url": "https://github.com/sigco3111/age-of-exploration-lite",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-25T07:42:22Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://ai-buy-sell.vercel.app",
+    "isPrivate": false,
+    "name": "ai-buy-sell",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-25T08:26:04Z",
+    "url": "https://github.com/sigco3111/ai-buy-sell",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-11T22:04:10Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "",
+    "isPrivate": false,
+    "name": "appscript_board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-11T22:13:44Z",
+    "url": "https://github.com/sigco3111/appscript_board",
+    "language": "HTML",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-10T02:48:04Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://block-sim-city.vercel.app",
+    "isPrivate": false,
+    "name": "block-simCity",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-10T04:20:47Z",
+    "url": "https://github.com/sigco3111/block-simCity",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-22T03:15:37Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://candy-crush-saga-nu.vercel.app",
+    "isPrivate": false,
+    "name": "candy-crush-saga",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-22T03:19:26Z",
+    "url": "https://github.com/sigco3111/candy-crush-saga",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-30T05:49:25Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://capitalism-web.vercel.app",
+    "isPrivate": false,
+    "name": "capitalism-web",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-31T03:35:50Z",
+    "url": "https://github.com/sigco3111/capitalism-web",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-18T22:33:15Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://castle-breaker.vercel.app",
+    "isPrivate": false,
+    "name": "castle-breaker",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-18T22:43:19Z",
+    "url": "https://github.com/sigco3111/castle-breaker",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-30T23:21:05Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://convenience24.vercel.app",
+    "isPrivate": false,
+    "name": "convenience24",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-30T23:26:23Z",
+    "url": "https://github.com/sigco3111/convenience24",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-22T21:53:03Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://core-breaker.vercel.app",
+    "isPrivate": false,
+    "name": "core-breaker",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-22T21:58:52Z",
+    "url": "https://github.com/sigco3111/core-breaker",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-31T09:01:04Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://core-image-converter.vercel.app",
+    "isPrivate": false,
+    "name": "core-image-converter",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-31T09:07:27Z",
+    "url": "https://github.com/sigco3111/core-image-converter",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-24T02:34:52Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://core-markdown-editor.vercel.app",
+    "isPrivate": false,
+    "name": "core-markdown-editor",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-24T23:11:22Z",
+    "url": "https://github.com/sigco3111/core-markdown-editor",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-24T03:07:07Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://core-video-editor.vercel.app",
+    "isPrivate": false,
+    "name": "core-video-editor",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-24T03:08:13Z",
+    "url": "https://github.com/sigco3111/core-video-editor",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-24T02:34:42Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://decision-genie.vercel.app",
+    "isPrivate": false,
+    "name": "decision-genie",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-24T23:40:34Z",
+    "url": "https://github.com/sigco3111/decision-genie",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-10T02:48:25Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://democracy4-lite.vercel.app",
+    "isPrivate": false,
+    "name": "democracy4-lite",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-10T04:19:25Z",
+    "url": "https://github.com/sigco3111/democracy4-lite",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-11T01:24:31Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://google-script-wizard-ddgi.vercel.app",
+    "isPrivate": false,
+    "name": "department-tycoon",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-11T03:28:49Z",
+    "url": "https://github.com/sigco3111/department-tycoon",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-15T22:43:18Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://diablock.vercel.app",
+    "isPrivate": false,
+    "name": "diablock",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-15T22:55:49Z",
+    "url": "https://github.com/sigco3111/diablock",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-30T06:45:15Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://dungeon-story.vercel.app",
+    "isPrivate": false,
+    "name": "dungeon-story",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-30T06:56:55Z",
+    "url": "https://github.com/sigco3111/dungeon-story",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-27T22:20:56Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://earthquake-seven.vercel.app",
+    "isPrivate": false,
+    "name": "earthquake",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-27T22:26:45Z",
+    "url": "https://github.com/sigco3111/earthquake",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-08T22:37:00Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://gamedev-lite.vercel.app",
+    "isPrivate": false,
+    "name": "gamedev-lite",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-09T07:05:31Z",
+    "url": "https://github.com/sigco3111/gamedev-lite",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-11T01:24:07Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://google-script-wizard.vercel.app",
+    "isPrivate": false,
+    "name": "google-script-wizard",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-24T23:16:07Z",
+    "url": "https://github.com/sigco3111/google-script-wizard",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-17T04:04:41Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://gostop-five.vercel.app",
+    "isPrivate": false,
+    "name": "gostop",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-17T04:12:26Z",
+    "url": "https://github.com/sigco3111/gostop",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-31T03:32:16Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://grand-prix-gold.vercel.app",
+    "isPrivate": false,
+    "name": "grand-prix",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-31T03:34:25Z",
+    "url": "https://github.com/sigco3111/grand-prix",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-23T05:33:48Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://iron-dome-beryl.vercel.app",
+    "isPrivate": false,
+    "name": "iron-dome",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-23T08:28:17Z",
+    "url": "https://github.com/sigco3111/iron-dome",
+    "language": "JavaScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-30T07:12:02Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://juice-tycoon.vercel.app",
+    "isPrivate": false,
+    "name": "juice-tycoon",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-30T07:13:14Z",
+    "url": "https://github.com/sigco3111/juice-tycoon",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-15T23:01:04Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://kingdoms3-tradewar.vercel.app",
+    "isPrivate": false,
+    "name": "kingdoms3-tradewar",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-15T23:03:48Z",
+    "url": "https://github.com/sigco3111/kingdoms3-tradewar",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-30T07:08:22Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://ladder-game-rho.vercel.app",
+    "isPrivate": false,
+    "name": "ladder-game",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-30T07:27:14Z",
+    "url": "https://github.com/sigco3111/ladder-game",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-23T02:55:18Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://lightning-strike-gilt.vercel.app",
+    "isPrivate": false,
+    "name": "lightning-strike",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-23T02:57:21Z",
+    "url": "https://github.com/sigco3111/lightning-strike",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-21T03:17:23Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://liquid-sort.vercel.app",
+    "isPrivate": false,
+    "name": "liquid-sort",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-21T03:19:00Z",
+    "url": "https://github.com/sigco3111/liquid-sort",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-12T07:05:03Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://make-app-wiz.vercel.app",
+    "isPrivate": false,
+    "name": "make-app-wiz",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-14T23:41:08Z",
+    "url": "https://github.com/sigco3111/make-app-wiz",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-09T23:48:26Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://mount-and-blade.vercel.app",
+    "isPrivate": false,
+    "name": "mount-and-blade",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-10T02:25:58Z",
+    "url": "https://github.com/sigco3111/mount-and-blade",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-21T04:33:45Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://number-connect.vercel.app",
+    "isPrivate": false,
+    "name": "number-connect",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-21T04:39:32Z",
+    "url": "https://github.com/sigco3111/number-connect",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-21T02:10:09Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://number-link-merge.vercel.app",
+    "isPrivate": false,
+    "name": "number-link-merge",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-21T02:16:40Z",
+    "url": "https://github.com/sigco3111/number-link-merge",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-27T22:43:12Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://one-card-game.vercel.app",
+    "isPrivate": false,
+    "name": "one-card-game",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-27T22:44:47Z",
+    "url": "https://github.com/sigco3111/one-card-game",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-20T07:40:23Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://pixedit.vercel.app",
+    "isPrivate": false,
+    "name": "pixedit",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-20T07:41:34Z",
+    "url": "https://github.com/sigco3111/pixedit",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-29T06:22:45Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://pixel-farm-story.vercel.app",
+    "isPrivate": false,
+    "name": "pixel-farm-story",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-29T07:01:27Z",
+    "url": "https://github.com/sigco3111/pixel-farm-story",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-27T22:30:34Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://poker-king.vercel.app",
+    "isPrivate": false,
+    "name": "poker-king",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-27T22:34:51Z",
+    "url": "https://github.com/sigco3111/poker-king",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-25T07:37:40Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://predator-rho.vercel.app",
+    "isPrivate": false,
+    "name": "predator",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-25T07:46:09Z",
+    "url": "https://github.com/sigco3111/predator",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-30T07:47:58Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "",
+    "isPrivate": false,
+    "name": "relationship-visualizer",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-30T07:50:32Z",
+    "url": "https://github.com/sigco3111/relationship-visualizer",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-08T23:50:15Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://rpg-adv-at.vercel.app",
+    "isPrivate": false,
+    "name": "rpg-adv-at",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-09T07:06:30Z",
+    "url": "https://github.com/sigco3111/rpg-adv-at",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-09T04:26:57Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://rpg-adv-bt.vercel.app",
+    "isPrivate": false,
+    "name": "rpg-adv-bt",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-09T07:07:48Z",
+    "url": "https://github.com/sigco3111/rpg-adv-bt",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-08T23:00:14Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://rpg-script-editor.vercel.app",
+    "isPrivate": false,
+    "name": "rpg-script-editor",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-24T23:19:05Z",
+    "url": "https://github.com/sigco3111/rpg-script-editor",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-22T03:00:58Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://sand-blast.vercel.app",
+    "isPrivate": false,
+    "name": "sand-blast",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-22T03:02:47Z",
+    "url": "https://github.com/sigco3111/sand-blast",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-12T03:27:04Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://speech-recognition-bice.vercel.app",
+    "isPrivate": true,
+    "name": "speech-recognition",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-29T06:58:04Z",
+    "url": "https://github.com/sigco3111/speech-recognition",
+    "language": "Python",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-23T03:49:19Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://stonks-9800.vercel.app",
+    "isPrivate": false,
+    "name": "stonks-9800",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-23T03:52:30Z",
+    "url": "https://github.com/sigco3111/stonks-9800",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-15T23:24:05Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://svg-converter-three.vercel.app",
+    "isPrivate": false,
+    "name": "svg-converter",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-16T00:30:44Z",
+    "url": "https://github.com/sigco3111/svg-converter",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-14T05:31:18Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://text-sync-check.vercel.app",
+    "isPrivate": false,
+    "name": "text-sync-check",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-14T05:35:27Z",
+    "url": "https://github.com/sigco3111/text-sync-check",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-17T06:11:29Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://watermelon-tan-nu.vercel.app",
+    "isPrivate": false,
+    "name": "watermelon",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-17T06:21:32Z",
+    "url": "https://github.com/sigco3111/watermelon",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-17T23:26:40Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://wobbly-tower.vercel.app",
+    "isPrivate": false,
+    "name": "wobbly-tower",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-18T00:16:30Z",
+    "url": "https://github.com/sigco3111/wobbly-tower",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-28T08:39:34Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://wordle-one-sigma.vercel.app",
+    "isPrivate": false,
+    "name": "wordle",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-28T08:42:20Z",
+    "url": "https://github.com/sigco3111/wordle",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-25T08:40:23Z",
+    "description": "",
+    "forkCount": 2,
+    "homepageUrl": "https://world-box.vercel.app",
+    "isPrivate": false,
+    "name": "world-box",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-28T05:50:03Z",
+    "url": "https://github.com/sigco3111/world-box",
+    "language": "JavaScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-06-09T06:18:48Z",
+    "description": "",
+    "forkCount": 2,
+    "homepageUrl": "https://xcom-lite.vercel.app",
+    "isPrivate": false,
+    "name": "xcom-lite",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-09T07:08:40Z",
+    "url": "https://github.com/sigco3111/xcom-lite",
+    "language": "TypeScript",
+    "category": "🎮 게임"
+  },
+  {
+    "createdAt": "2025-07-09T03:58:58Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://hitel-board.vercel.app",
+    "isPrivate": false,
+    "name": "hitel-board",
+    "stargazerCount": 1,
+    "updatedAt": "2025-07-31T00:07:20Z",
+    "url": "https://github.com/sigco3111/hitel-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-07T22:10:30Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://ai-flowchart-lovat.vercel.app",
+    "isPrivate": false,
+    "name": "ai-flowchart",
+    "stargazerCount": 0,
+    "updatedAt": "2025-08-11T16:01:45Z",
+    "url": "https://github.com/sigco3111/ai-flowchart",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-29T04:48:39Z",
+    "description": "",
+    "forkCount": 2,
+    "homepageUrl": "https://air-management.vercel.app",
+    "isPrivate": false,
+    "name": "air-management",
+    "stargazerCount": 0,
+    "updatedAt": "2025-08-04T22:57:44Z",
+    "url": "https://github.com/sigco3111/air-management",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-10T01:54:59Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://cli-board.vercel.app",
+    "isPrivate": false,
+    "name": "cli-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-10T22:54:02Z",
+    "url": "https://github.com/sigco3111/cli-board",
+    "language": "HTML",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-28T02:29:09Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://co2-board.vercel.app",
+    "isPrivate": false,
+    "name": "co2-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-28T02:34:06Z",
+    "url": "https://github.com/sigco3111/co2-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-15T06:17:59Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://code-map-ruby.vercel.app",
+    "isPrivate": false,
+    "name": "code-map",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-15T06:39:47Z",
+    "url": "https://github.com/sigco3111/code-map",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-08T22:36:34Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://codeviz-ai.vercel.app",
+    "isPrivate": false,
+    "name": "codeviz-ai",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-08T23:23:15Z",
+    "url": "https://github.com/sigco3111/codeviz-ai",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-16T00:46:32Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://commodity-dashboard-bay.vercel.app",
+    "isPrivate": false,
+    "name": "commodity-dashboard",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-30T22:03:52Z",
+    "url": "https://github.com/sigco3111/commodity-dashboard",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-06-22T22:09:45Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://fire-tribe-base.vercel.app",
+    "isPrivate": false,
+    "name": "fire-tribe-base",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-24T23:34:48Z",
+    "url": "https://github.com/sigco3111/fire-tribe-base",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-24T07:40:15Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://github-board-swart.vercel.app",
+    "isPrivate": false,
+    "name": "github-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-08-01T08:10:49Z",
+    "url": "https://github.com/sigco3111/github-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-08-01T07:38:38Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://github-board2.vercel.app",
+    "isPrivate": false,
+    "name": "github-board2",
+    "stargazerCount": 0,
+    "updatedAt": "2025-08-01T07:48:58Z",
+    "url": "https://github.com/sigco3111/github-board2",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-06-22T22:41:37Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://insight-pick.vercel.app",
+    "isPrivate": false,
+    "name": "insight-pick",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-24T23:37:37Z",
+    "url": "https://github.com/sigco3111/insight-pick",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-25T01:25:26Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://ip-board-nu.vercel.app",
+    "isPrivate": false,
+    "name": "ip-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-25T01:33:31Z",
+    "url": "https://github.com/sigco3111/ip-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-06-30T07:25:51Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://json-flow.vercel.app",
+    "isPrivate": false,
+    "name": "json-flow",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-30T07:38:02Z",
+    "url": "https://github.com/sigco3111/json-flow",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-01T05:39:32Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://mac-board.vercel.app",
+    "isPrivate": false,
+    "name": "mac-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-08-11T06:14:28Z",
+    "url": "https://github.com/sigco3111/mac-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-28T01:20:23Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://satellite-board.vercel.app",
+    "isPrivate": false,
+    "name": "satellite-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-28T01:28:45Z",
+    "url": "https://github.com/sigco3111/satellite-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-11T02:00:35Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "",
+    "isPrivate": false,
+    "name": "space-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-14T01:45:41Z",
+    "url": "https://github.com/sigco3111/space-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-28T07:34:44Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://steam-board.vercel.app",
+    "isPrivate": false,
+    "name": "steam-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-29T01:22:27Z",
+    "url": "https://github.com/sigco3111/steam-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-07T02:02:01Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://sys8-board.vercel.app",
+    "isPrivate": false,
+    "name": "sys8-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-07T22:37:49Z",
+    "url": "https://github.com/sigco3111/sys8-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-06-27T09:10:15Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://tech-stack-flax.vercel.app",
+    "isPrivate": false,
+    "name": "tech-stack",
+    "stargazerCount": 0,
+    "updatedAt": "2025-06-30T07:47:11Z",
+    "url": "https://github.com/sigco3111/tech-stack",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-06-27T15:38:22Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://tech-toolkit-hub.vercel.app",
+    "isPrivate": false,
+    "name": "tech-toolkit-hub",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-21T02:38:28Z",
+    "url": "https://github.com/sigco3111/tech-toolkit-hub",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-14T05:37:34Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://token-meter.vercel.app",
+    "isPrivate": false,
+    "name": "token-meter",
+    "stargazerCount": 0,
+    "updatedAt": "2025-08-02T05:38:41Z",
+    "url": "https://github.com/sigco3111/token-meter",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-08T00:37:08Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://ubuntu-board.vercel.app",
+    "isPrivate": false,
+    "name": "ubuntu-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-08T00:46:11Z",
+    "url": "https://github.com/sigco3111/ubuntu-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-05T16:14:32Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://win11-board.vercel.app",
+    "isPrivate": false,
+    "name": "win11-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-07T00:34:05Z",
+    "url": "https://github.com/sigco3111/win11-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-06T23:27:49Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://winxp-board.vercel.app",
+    "isPrivate": false,
+    "name": "winxp-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-07T01:38:26Z",
+    "url": "https://github.com/sigco3111/winxp-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-28T02:03:36Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://world-bank-board.vercel.app",
+    "isPrivate": false,
+    "name": "world-bank-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-28T02:04:54Z",
+    "url": "https://github.com/sigco3111/world-bank-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2025-07-29T23:31:07Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "https://youtube-board.vercel.app",
+    "isPrivate": false,
+    "name": "youtube-board",
+    "stargazerCount": 0,
+    "updatedAt": "2025-07-29T23:57:15Z",
+    "url": "https://github.com/sigco3111/youtube-board",
+    "language": "TypeScript",
+    "category": "📊 데이터 시각화"
+  },
+  {
+    "createdAt": "2026-03-29T23:04:39Z",
+    "description": "부크크용 스킬 및 작업 폴더",
+    "forkCount": 0,
+    "homepageUrl": "",
+    "isPrivate": true,
+    "name": "bookk",
+    "stargazerCount": 0,
+    "updatedAt": "2026-04-10T09:46:30Z",
+    "url": "https://github.com/sigco3111/bookk",
+    "language": "Python",
+    "category": "📖 재무"
+  },
+  {
+    "createdAt": "2026-04-06T03:04:37Z",
+    "description": "hermes의 기억 저장소",
+    "forkCount": 0,
+    "homepageUrl": "",
+    "isPrivate": true,
+    "name": "hermes_bot",
+    "stargazerCount": 0,
+    "updatedAt": "2026-04-11T07:30:16Z",
+    "url": "https://github.com/sigco3111/hermes_bot",
+    "language": "Python",
+    "category": "🔧 ICBM/에이전트"
+  },
+  {
+    "createdAt": "2026-02-02T01:27:26Z",
+    "description": "Clawdbot workspace for testing and automation",
+    "forkCount": 0,
+    "homepageUrl": "",
+    "isPrivate": true,
+    "name": "icbm-workspace",
+    "stargazerCount": 0,
+    "updatedAt": "2026-02-06T09:26:35Z",
+    "url": "https://github.com/sigco3111/icbm-workspace",
+    "language": "Python",
+    "category": "🔧 ICBM/에이전트"
+  },
+  {
+    "createdAt": "2026-04-11T06:21:21Z",
+    "description": "ICBM2 지식 그래프 시각화 (auto-updated)",
+    "forkCount": 0,
+    "homepageUrl": "",
+    "isPrivate": false,
+    "name": "icbm2-knowledge-graph",
+    "stargazerCount": 0,
+    "updatedAt": "2026-04-11T23:25:33Z",
+    "url": "https://github.com/sigco3111/icbm2-knowledge-graph",
+    "language": "HTML",
+    "category": "🔧 ICBM/에이전트"
+  },
+  {
+    "createdAt": "2026-02-08T22:50:54Z",
+    "description": "ICBM2호 워크스페이스 및 설정 백업",
+    "forkCount": 0,
+    "homepageUrl": "https://icbm2-workspace.vercel.app",
+    "isPrivate": true,
+    "name": "icbm2-workspace",
+    "stargazerCount": 0,
+    "updatedAt": "2026-04-06T06:48:19Z",
+    "url": "https://github.com/sigco3111/icbm2-workspace",
+    "language": "Python",
+    "category": "🔧 ICBM/에이전트"
+  },
+  {
+    "createdAt": "2025-09-25T05:59:34Z",
+    "description": "",
+    "forkCount": 0,
+    "homepageUrl": "https://ccusage-json.vercel.app",
+    "isPrivate": false,
+    "name": "ccusage-json",
+    "stargazerCount": 0,
+    "updatedAt": "2025-09-25T06:24:06Z",
+    "url": "https://github.com/sigco3111/ccusage-json",
+    "language": "TypeScript",
+    "category": "🛠 개발 도구"
+  },
+  {
+    "createdAt": "2025-10-14T08:39:20Z",
+    "description": "claude code용 커스텀 슬래시 커맨드 : super claude 스킬과 플러그인을 최적으로 활용하는 지능형 프롬프트 전략 추천.",
+    "forkCount": 1,
+    "homepageUrl": "",
+    "isPrivate": false,
+    "name": "prompt-advisor",
+    "stargazerCount": 0,
+    "updatedAt": "2025-10-15T07:54:32Z",
+    "url": "https://github.com/sigco3111/prompt-advisor",
+    "language": null,
+    "category": "🛠 개발 도구"
+  },
+  {
+    "createdAt": "2025-08-12T05:00:03Z",
+    "description": "",
+    "forkCount": 1,
+    "homepageUrl": "",
+    "isPrivate": false,
+    "name": "yt-download",
+    "stargazerCount": 0,
+    "updatedAt": "2025-08-12T06:42:16Z",
+    "url": "https://github.com/sigco3111/yt-download",
+    "language": "Python",
+    "category": "🛠 개발 도구"
+  }
+];
+
+const LANG_COLORS = {
+  'TypeScript':'#3178c6','JavaScript':'#f1e05a','Python':'#3572a5',
+  'HTML':'#e34c26','N/A':'#555'
+};
+
+// Stats
+const totalRepos = REPOS.length;
+const publicRepos = REPOS.filter(r => !r.isPrivate).length;
+const privateRepos = totalRepos - publicRepos;
+const totalStars = REPOS.reduce((s,r) => s + r.stargazerCount, 0);
+const totalForks = REPOS.reduce((s,r) => s + r.forkCount, 0);
+const langs = {};
+REPOS.forEach(r => { const l = r.language || 'N/A'; langs[l] = (langs[l]||0) + 1; });
+const topLang = Object.entries(langs).sort((a,b) => b[1]-a[1])[0];
+
+document.getElementById('stats').innerHTML = [
+  {v:totalRepos,l:'총 저장소',c:'green'},
+  {v:publicRepos,l:'공개',c:'blue'},
+  {v:privateRepos,l:'비공개',c:'red'},
+  {v:totalStars,l:'⭐ Stars',c:'yellow'},
+  {v:totalForks,l:'🍴 Forks',c:'purple'},
+  {v:topLang?topLang[0]:'-',l:'주력 언어 ('+( topLang?topLang[1]:0)+'개)',c:'orange'}
+].map(s => `<div class="stat-card ${s.c}"><div class="stat-value">${s.v}</div><div class="stat-label">${s.l}</div></div>`).join('');
+
+// Top repos
+const topRepos = REPOS.filter(r => r.stargazerCount > 0 || r.forkCount >= 2)
+  .sort((a,b) => (b.stargazerCount*3 + b.forkCount) - (a.stargazerCount*3 + a.forkCount))
+  .slice(0, 5);
+
+document.getElementById('top-repos').innerHTML = topRepos.map((r,i) => `
+  <div class="top-card">
+    <div class="top-rank">#${i+1}</div>
+    <div class="top-name"><a href="${r.url}" target="_blank">${r.name}</a></div>
+    <div class="top-desc">${r.description || '설명 없음'}</div>
+    <div class="top-stats">
+      <span class="star">⭐ ${r.stargazerCount}</span>
+      <span class="fork">🍴 ${r.forkCount}</span>
+      <span>${r.language||'N/A'}</span>
+    </div>
+  </div>
+`).join('');
+
+// Categories
+const CATS = {};
+REPOS.forEach(r => { CATS[r.category] = (CATS[r.category]||0) + 1; });
+
+// Filter buttons
+const allCats = ['전체', ...Object.keys(CATS)];
+const filtersEl = document.getElementById('filters');
+filtersEl.innerHTML = allCats.map(c => `<button class="filter-btn${c==='전체'?' active':''}" data-cat="${c}">${c} (${c==='전체'?totalRepos:CATS[c]})</button>`).join('');
+
+filtersEl.addEventListener('click', e => {
+  if (!e.target.classList.contains('filter-btn')) return;
+  filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  renderRepos(e.target.dataset.cat);
+});
+
+// Search
+document.getElementById('search').addEventListener('input', e => {
+  renderRepos(currentFilter, e.target.value.toLowerCase());
+});
+
+let currentFilter = '전체';
+
+function renderRepos(filter = '전체', search = '') {
+  const filtered = REPOS.filter(r => {
+    const matchCat = filter === '전체' || r.category === filter;
+    const matchSearch = !search || r.name.toLowerCase().includes(search) || (r.description||'').toLowerCase().includes(search);
+    return matchCat && matchSearch;
+  });
+
+  const grouped = {};
+  filtered.forEach(r => { (grouped[r.category] = grouped[r.category] || []).push(r); });
+
+  const catsEl = document.getElementById('categories');
+  catsEl.innerHTML = Object.entries(grouped).map(([cat, repos]) => `
+    <div class="cat-section">
+      <div class="cat-title">${cat} <span class="cat-count">${repos.length}개</span></div>
+      <div class="repo-grid">
+        ${repos.map(r => {
+          const lang = r.language || 'N/A';
+          const date = r.updatedAt ? new Date(r.updatedAt).toLocaleDateString('ko-KR') : '';
+          return `<div class="repo-card">
+            <div class="repo-name">
+              <a href="${r.url}" target="_blank">${r.name}</a>
+              <span class="vis ${r.isPrivate?'vis-private':'vis-public'}">${r.isPrivate?'Private':'Public'}</span>
+            </div>
+            ${r.description ? `<div class="repo-desc">${r.description}</div>` : ''}
+            <div class="repo-meta">
+              <span class="lang"><span class="lang-dot" style="background:${LANG_COLORS[lang]||'#555'}"></span>${lang}</span>
+              ${r.stargazerCount ? `<span class="star">⭐${r.stargazerCount}</span>` : ''}
+              ${r.forkCount ? `<span class="fork">🍴${r.forkCount}</span>` : ''}
+              ${r.homepageUrl ? `<a href="${r.homepageUrl}" target="_blank" class="hp-link">🌐 Demo</a>` : ''}
+              <span class="date">${date}</span>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+renderRepos();
+</script>
+</body>
+</html>
