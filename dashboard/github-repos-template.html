@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📦 GitHub Repositories | ICBM2</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#0a0e17;color:#e0e0e0;line-height:1.6;min-height:100vh}
+a{color:#00ff88;text-decoration:none}
+.page{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:#667;font-size:.85em;margin-bottom:16px}
+.back-link:hover{color:#00ff88}
+.header{text-align:center;padding:24px 0 20px;border-bottom:1px solid #1a2332;margin-bottom:24px}
+.header h1{font-size:1.8em;font-weight:700;background:linear-gradient(135deg,#00ff88,#00bbff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.header .subtitle{color:#667;font-size:.85em}
+
+/* Stats Grid */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
+.stat-card{background:#111827;border-radius:12px;padding:16px;text-align:center}
+.stat-value{font-size:2em;font-weight:800;letter-spacing:-1px}
+.stat-label{font-size:.78em;color:#667;margin-top:4px}
+.stat-card.green .stat-value{color:#00ff88}
+.stat-card.blue .stat-value{color:#00bbff}
+.stat-card.yellow .stat-value{color:#fbbf24}
+.stat-card.red .stat-value{color:#f87171}
+.stat-card.purple .stat-value{color:#a78bfa}
+.stat-card.orange .stat-value{color:#fb923c}
+
+/* Category Cards */
+.cat-section{margin-bottom:20px}
+.cat-title{font-size:1.05em;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cat-count{font-size:.75em;color:#556;background:#1a2332;padding:2px 8px;border-radius:10px}
+.repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.repo-card{background:#111827;border-radius:10px;padding:14px 16px;transition:transform .2s,box-shadow .2s;border:1px solid transparent}
+.repo-card:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.3);border-color:#1a2332}
+.repo-name{font-weight:600;font-size:.95em;color:#dde;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.repo-name a:hover{color:#00ff88}
+.repo-name .vis{font-size:.7em;padding:1px 6px;border-radius:4px;font-weight:500}
+.vis-public{background:rgba(0,255,136,.1);color:#00ff88}
+.vis-private{background:rgba(248,113,113,.1);color:#f87171}
+.repo-desc{font-size:.82em;color:#778;margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.repo-meta{display:flex;align-items:center;gap:12px;font-size:.78em;color:#556;flex-wrap:wrap}
+.repo-meta .lang{display:flex;align-items:center;gap:4px}
+.repo-meta .lang-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.repo-meta .star,.repo-meta .fork{display:flex;align-items:center;gap:3px}
+.repo-meta .date{margin-left:auto}
+.repo-link{color:#556;font-size:.82em;display:flex;align-items:center;gap:4px}
+.repo-link:hover{color:#00ff88}
+.hp-link{color:#556;font-size:.75em;margin-left:4px}
+.hp-link:hover{color:#fbbf24}
+
+/* Lang colors */
+.lang-TypeScript{background:#3178c6}
+.lang-JavaScript{background:#f1e05a}
+.lang-Python{background:#3572a5}
+.lang-HTML{background:#e34c26}
+.lang-N-A{background:#555}
+
+/* Top repos */
+.top-section{margin-bottom:24px}
+.top-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.top-card{background:linear-gradient(135deg,#111827,#1a2332);border-radius:10px;padding:16px;border:1px solid #1e293b}
+.top-rank{font-size:1.5em;font-weight:800;color:#fbbf24;margin-bottom:4px}
+.top-name{font-weight:700;font-size:1em;color:#dde;margin-bottom:4px}
+.top-name a:hover{color:#00ff88}
+.top-desc{font-size:.82em;color:#778;margin-bottom:8px}
+.top-stats{display:flex;gap:12px;font-size:.8em;color:#667}
+
+/* Filter */
+.filter-bar{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:6px 14px;border-radius:20px;border:1px solid #1e293b;background:#111827;color:#889;font-size:.82em;cursor:pointer;transition:all .2s}
+.filter-btn:hover,.filter-btn.active{background:#1a2332;color:#00ff88;border-color:#00ff88}
+
+/* Search */
+.search-box{margin-bottom:20px}
+.search-input{width:100%;max-width:400px;padding:10px 16px;border-radius:10px;border:1px solid #1e293b;background:#111827;color:#dde;font-size:.9em;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:#00ff88}
+.search-input::placeholder{color:#445}
+
+@media(max-width:600px){
+  .repo-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <a href="../index.html" class="back-link">← ICBM2 Command Center</a>
+  <div class="header">
+    <h1>📦 GitHub Repositories</h1>
+    <div class="subtitle">sigco3111의 GitHub 저장소 대시보드</div>
+  </div>
+
+  <div class="stats-grid" id="stats"></div>
+
+  <div class="top-section">
+    <div class="cat-title">🏆 인기 저장소</div>
+    <div class="top-grid" id="top-repos"></div>
+  </div>
+
+  <div class="search-box">
+    <input type="text" class="search-input" id="search" placeholder="🔍 저장소 검색...">
+  </div>
+
+  <div class="filter-bar" id="filters"></div>
+
+  <div id="categories"></div>
+</div>
+
+<script>
+const REPOS = __REPOS_PLACEHOLDER__
+
+const LANG_COLORS = {
+  'TypeScript':'#3178c6','JavaScript':'#f1e05a','Python':'#3572a5',
+  'HTML':'#e34c26','N/A':'#555'
+};
+
+// Stats
+const totalRepos = REPOS.length;
+const publicRepos = REPOS.filter(r => !r.isPrivate).length;
+const privateRepos = totalRepos - publicRepos;
+const totalStars = REPOS.reduce((s,r) => s + r.stargazerCount, 0);
+const totalForks = REPOS.reduce((s,r) => s + r.forkCount, 0);
+const langs = {};
+REPOS.forEach(r => { const l = r.language || 'N/A'; langs[l] = (langs[l]||0) + 1; });
+const topLang = Object.entries(langs).sort((a,b) => b[1]-a[1])[0];
+
+document.getElementById('stats').innerHTML = [
+  {v:totalRepos,l:'총 저장소',c:'green'},
+  {v:publicRepos,l:'공개',c:'blue'},
+  {v:privateRepos,l:'비공개',c:'red'},
+  {v:totalStars,l:'⭐ Stars',c:'yellow'},
+  {v:totalForks,l:'🍴 Forks',c:'purple'},
+  {v:topLang?topLang[0]:'-',l:'주력 언어 ('+( topLang?topLang[1]:0)+'개)',c:'orange'}
+].map(s => `<div class="stat-card ${s.c}"><div class="stat-value">${s.v}</div><div class="stat-label">${s.l}</div></div>`).join('');
+
+// Top repos
+const topRepos = REPOS.filter(r => r.stargazerCount > 0 || r.forkCount >= 2)
+  .sort((a,b) => (b.stargazerCount*3 + b.forkCount) - (a.stargazerCount*3 + a.forkCount))
+  .slice(0, 5);
+
+document.getElementById('top-repos').innerHTML = topRepos.map((r,i) => `
+  <div class="top-card">
+    <div class="top-rank">#${i+1}</div>
+    <div class="top-name"><a href="${r.url}" target="_blank">${r.name}</a></div>
+    <div class="top-desc">${r.description || '설명 없음'}</div>
+    <div class="top-stats">
+      <span class="star">⭐ ${r.stargazerCount}</span>
+      <span class="fork">🍴 ${r.forkCount}</span>
+      <span>${r.language||'N/A'}</span>
+    </div>
+  </div>
+`).join('');
+
+// Categories
+const CATS = {};
+REPOS.forEach(r => { CATS[r.category] = (CATS[r.category]||0) + 1; });
+
+// Filter buttons
+const allCats = ['전체', ...Object.keys(CATS)];
+const filtersEl = document.getElementById('filters');
+filtersEl.innerHTML = allCats.map(c => `<button class="filter-btn${c==='전체'?' active':''}" data-cat="${c}">${c} (${c==='전체'?totalRepos:CATS[c]})</button>`).join('');
+
+filtersEl.addEventListener('click', e => {
+  if (!e.target.classList.contains('filter-btn')) return;
+  filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  renderRepos(e.target.dataset.cat);
+});
+
+// Search
+document.getElementById('search').addEventListener('input', e => {
+  renderRepos(currentFilter, e.target.value.toLowerCase());
+});
+
+let currentFilter = '전체';
+
+function renderRepos(filter = '전체', search = '') {
+  const filtered = REPOS.filter(r => {
+    const matchCat = filter === '전체' || r.category === filter;
+    const matchSearch = !search || r.name.toLowerCase().includes(search) || (r.description||'').toLowerCase().includes(search);
+    return matchCat && matchSearch;
+  });
+
+  const grouped = {};
+  filtered.forEach(r => { (grouped[r.category] = grouped[r.category] || []).push(r); });
+
+  const catsEl = document.getElementById('categories');
+  catsEl.innerHTML = Object.entries(grouped).map(([cat, repos]) => `
+    <div class="cat-section">
+      <div class="cat-title">${cat} <span class="cat-count">${repos.length}개</span></div>
+      <div class="repo-grid">
+        ${repos.map(r => {
+          const lang = r.language || 'N/A';
+          const date = r.updatedAt ? new Date(r.updatedAt).toLocaleDateString('ko-KR') : '';
+          return `<div class="repo-card">
+            <div class="repo-name">
+              <a href="${r.url}" target="_blank">${r.name}</a>
+              <span class="vis ${r.isPrivate?'vis-private':'vis-public'}">${r.isPrivate?'Private':'Public'}</span>
+            </div>
+            ${r.description ? `<div class="repo-desc">${r.description}</div>` : ''}
+            <div class="repo-meta">
+              <span class="lang"><span class="lang-dot" style="background:${LANG_COLORS[lang]||'#555'}"></span>${lang}</span>
+              ${r.stargazerCount ? `<span class="star">⭐${r.stargazerCount}</span>` : ''}
+              ${r.forkCount ? `<span class="fork">🍴${r.forkCount}</span>` : ''}
+              ${r.homepageUrl ? `<a href="${r.homepageUrl}" target="_blank" class="hp-link">🌐 Demo</a>` : ''}
+              <span class="date">${date}</span>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+renderRepos();
+</script>
+</body>
+</html>

@@ -5,7 +5,7 @@ import subprocess
 import os
 
 REPO_DIR = "/Users/hjshin/icbm2-knowledge-graph"
-TEMPLATE = os.path.join(REPO_DIR, "dashboard", "github-repos.html")
+TEMPLATE = os.path.join(REPO_DIR, "dashboard", "github-repos-template.html")
 OUTPUT = os.path.join(REPO_DIR, "dashboard", "github-repos.html")
 
 # Category mapping
@@ -43,24 +43,34 @@ for cat, names in cat_items.items():
     for name in names:
         CATEGORY_MAP[name] = cat
 
-# Fetch repos
+# Fetch ALL repos via GitHub API with pagination
 print("Fetching repos from GitHub...")
-result = subprocess.run(
-    ['gh', 'repo', 'list', '--limit', '200', '--json',
-     'name,description,url,stargazerCount,forkCount,primaryLanguage,updatedAt,createdAt,isPrivate,homepageUrl'],
-    capture_output=True, text=True
-)
-repos = json.loads(result.stdout)
+repos = []
+page = 1
+while True:
+    result = subprocess.run(
+        ['gh', 'api', f'user/repos?per_page=100&sort=updated&page={page}',
+         '--jq', '[.[] | {name,description,url,homepageUrl,stargazerCount,forkCount,isPrivate,createdAt,updatedAt,primaryLanguage: .language} ]'],
+        capture_output=True, text=True
+    )
+    batch = json.loads(result.stdout)
+    if not batch:
+        break
+    repos.extend(batch)
+    print(f"  Page {page}: {len(batch)} repos")
+    page += 1
+    if len(batch) < 100:
+        break
 
 # Add category
 for repo in repos:
-    repo['language'] = repo['primaryLanguage']['name'] if repo['primaryLanguage'] else None
+    lang = repo.get('primaryLanguage')
+    repo['language'] = lang if isinstance(lang, str) else (lang.get('name') if lang else None)
     repo['category'] = CATEGORY_MAP.get(repo['name'], "📋 기타")
-    # Remove primaryLanguage to keep data clean
-    del repo['primaryLanguage']
+    if 'primaryLanguage' in repo:
+        del repo['primaryLanguage']
 
-# Sort: by category then by stars desc
-repos.sort(key=lambda r: (r['category'], -r['stargazerCount'], r['name']))
+repos.sort(key=lambda r: (r['category'], -(r['stargazerCount'] or 0), r['name']))
 
 print(f"Total: {len(repos)} repos")
 
@@ -68,7 +78,11 @@ print(f"Total: {len(repos)} repos")
 with open(TEMPLATE, 'r') as f:
     html = f.read()
 
-repos_json = json.dumps(repos, ensure_ascii=False, indent=2)
+if '__REPOS_PLACEHOLDER__' not in html:
+    print("ERROR: __REPOS_PLACEHOLDER__ not found in template!")
+    exit(1)
+
+repos_json = json.dumps(repos, ensure_ascii=False)
 html = html.replace('__REPOS_PLACEHOLDER__', repos_json)
 
 with open(OUTPUT, 'w') as f:
