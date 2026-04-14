@@ -8,7 +8,7 @@ import base64
 import time
 from datetime import datetime, timedelta
 
-REPO_DIR = "/Users/hjshin/icbm2-knowledge-graph"
+REPO_DIR = os.environ.get("GITHUB_WORKSPACE", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 TEMPLATE = os.path.join(REPO_DIR, "dashboard", "github-repos-template.html")
 OUTPUT = os.path.join(REPO_DIR, "dashboard", "github-repos.html")
 DATA_DIR = os.path.join(REPO_DIR, "data")
