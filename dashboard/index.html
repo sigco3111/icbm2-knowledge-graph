@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ICBM2 대시보드</title>
+<title>ICBM2 자동화 대시보드</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#0a0e17;color:#e0e0e0;line-height:1.6;min-height:100vh}
@@ -13,18 +13,6 @@ a{color:#00ff88;text-decoration:none}
 .header h1{font-size:1.8em;font-weight:700;background:linear-gradient(135deg,#00ff88,#00bbff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
 .header .subtitle{color:#667;font-size:.85em}
 .header .update-time{color:#445;font-size:.78em;margin-top:4px}
-
-/* Tab Navigation */
-.tab-nav{display:flex;gap:4px;margin-bottom:24px;background:#0d1117;border-radius:12px;padding:4px;border:1px solid #1a2332}
-.tab-btn{flex:1;padding:12px 20px;border:none;border-radius:10px;background:transparent;color:#667;font-size:.92em;font-weight:600;cursor:pointer;transition:all .25s ease;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px}
-.tab-btn:hover{color:#aab;background:#151d2b}
-.tab-btn.active{color:#fff;background:linear-gradient(135deg,rgba(0,255,136,.15),rgba(0,187,255,.15));border:1px solid rgba(0,255,136,.3)}
-.tab-btn .tab-icon{font-size:1.1em}
-.tab-content{display:none;animation:fadeIn .3s ease}
-.tab-content.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* ====== AUTOMATION TAB (existing styles) ====== */
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
 .kpi-card{background:#111827;border-radius:12px;padding:20px;transition:transform .2s,box-shadow .2s}
 .kpi-card:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,255,136,.1)}
@@ -66,87 +54,41 @@ a{color:#00ff88;text-decoration:none}
 .kpi-goal-fill{height:100%;border-radius:5px;transition:width .8s ease;min-width:2px}
 .kpi-goal-pct{text-align:right;font-size:.8em;font-weight:600;color:#889}
 .footer{text-align:center;padding:20px 0;color:#334;font-size:.75em;border-top:1px solid #1a2332;margin-top:20px}
-
-/* ====== BRIEFING TAB STYLES ====== */
-.briefing-header{text-align:center;margin-bottom:24px;padding:20px 0;border-bottom:1px solid #1a2332}
-.briefing-header .briefing-date{font-size:1.3em;font-weight:700;color:#dde;margin-bottom:4px}
-.briefing-header .briefing-note{color:#889;font-size:.88em;font-style:italic;max-width:600px;margin:0 auto}
-.briefing-header .briefing-updated{color:#556;font-size:.78em;margin-top:6px}
-
-.briefing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px}
-.briefing-card{background:#111827;border-radius:12px;padding:20px;transition:transform .2s,box-shadow .2s;border:1px solid #1a2332}
-.briefing-card:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,255,136,.08)}
-.briefing-card.full-width{grid-column:1/-1}
-.briefing-card-title{font-size:.95em;font-weight:700;margin-bottom:14px;color:#dde;display:flex;align-items:center;gap:8px}
-.briefing-card-title .card-icon{font-size:1.2em}
-
-/* Weather Card */
-.weather-main{display:flex;align-items:center;gap:16px;margin-bottom:14px}
-.weather-icon{font-size:3em}
-.weather-temp{font-size:2em;font-weight:800}
-.weather-temp .unit{font-size:.5em;color:#889;font-weight:400}
-.weather-condition{color:#aab;font-size:.9em;margin-bottom:2px}
-.weather-details{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px}
-.weather-detail{display:flex;justify-content:space-between;font-size:.82em;padding:4px 0;border-bottom:1px solid #151d2b}
-.weather-detail-label{color:#667}
-.weather-detail-value{color:#aab;font-weight:500}
-
-/* Stock Card */
-.stock-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #151d2b}
-.stock-item:last-child{border-bottom:none}
-.stock-name{font-weight:600;font-size:.88em;color:#aab;min-width:70px}
-.stock-value{font-weight:700;font-size:.95em;flex:1;text-align:right;margin-right:12px}
-.stock-change{font-size:.82em;font-weight:600;padding:3px 8px;border-radius:6px;min-width:65px;text-align:center}
-.stock-change.up{color:#00ff88;background:rgba(0,255,136,.1)}
-.stock-change.down{color:#ff4444;background:rgba(255,68,68,.1)}
-.stock-change.flat{color:#888;background:rgba(136,136,136,.1)}
-.stock-divider{border:none;border-top:1px dashed #1a2332;margin:8px 0}
-
-/* Watchlist */
-.watchlist-title{font-size:.78em;color:#667;font-weight:600;margin:10px 0 6px;text-transform:uppercase;letter-spacing:.5px}
-.watchlist-item{display:flex;align-items:center;justify-content:space-between;padding:6px 0;font-size:.85em}
-.watchlist-name{color:#aab}
-.watchlist-price{color:#dde;font-weight:600}
-
-/* News List */
-.news-list{display:flex;flex-direction:column;gap:10px}
-.news-item{padding:12px;background:#0d1117;border-radius:8px;border:1px solid #1a2332;transition:border-color .2s}
-.news-item:hover{border-color:#253040}
-.news-item-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.news-tag{font-size:.7em;font-weight:700;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.3px}
-.news-tag.agent{background:rgba(0,187,255,.15);color:#00bbff;border:1px solid rgba(0,187,255,.3)}
-.news-tag.highlight{background:rgba(255,204,0,.15);color:#ffcc00;border:1px solid rgba(255,204,0,.3)}
-.news-tag.general{background:rgba(136,136,136,.15);color:#889;border:1px solid rgba(136,136,136,.3)}
-.news-title{font-size:.88em;font-weight:500;color:#dde;line-height:1.5}
-.news-item.highlight-news{border-left:3px solid #ffcc00}
-
-/* Automation Performance */
-.auto-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.auto-stat-item{background:#0d1117;border-radius:8px;padding:14px;border:1px solid #1a2332}
-.auto-stat-label{font-size:.78em;color:#667;margin-bottom:6px;font-weight:500}
-.auto-stat-value{font-size:1.5em;font-weight:800;margin-bottom:2px}
-.auto-stat-sub{font-size:.75em;color:#556}
-.auto-stat-change{font-size:.78em;font-weight:600}
-.auto-stat-change.positive{color:#00ff88}
-.auto-stat-change.negative{color:#ff4444}
-.cron-health{margin-top:12px;padding:12px;background:#0d1117;border-radius:8px;border:1px solid #1a2332}
-.cron-health-title{font-size:.82em;color:#889;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.cron-bar{height:8px;background:#1a2332;border-radius:4px;overflow:hidden;margin-bottom:6px}
-.cron-bar-fill{height:100%;border-radius:4px;transition:width .8s ease}
-.cron-detail{font-size:.78em;color:#667;display:flex;justify-content:space-between}
-.cron-healed{color:#00bbff;font-size:.78em;margin-top:4px;font-weight:600}
-
-/* Insights */
-.insights-list{display:flex;flex-direction:column;gap:10px}
-.insight-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#0d1117;border-radius:8px;border:1px solid #1a2332}
-.insight-bullet{color:#00ff88;font-size:1.2em;flex-shrink:0;margin-top:1px}
-.insight-text{font-size:.88em;color:#dde;line-height:1.5}
-
-/* Responsive */
-@media(max-width:768px){
-  .briefing-grid{grid-template-columns:1fr}
-  .auto-stats{grid-template-columns:1fr 1fr}
-}
+.briefing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.briefing-grid .briefing-weather{grid-column:1/2}
+.briefing-grid .briefing-stocks{grid-column:2/3}
+.briefing-grid .briefing-news{grid-column:1/3}
+.briefing-grid .briefing-automation{grid-column:1/3}
+.briefing-subsection{background:#0d1117;border-radius:10px;padding:16px}
+.briefing-subtitle{font-size:.92em;font-weight:600;color:#aab;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.weather-main{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+.weather-icon{font-size:2.8em;line-height:1}
+.weather-temp{font-size:2.2em;font-weight:800;color:#dde}
+.weather-desc{font-size:.85em;color:#889;margin-top:2px}
+.weather-details{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.weather-detail{font-size:.78em;color:#778}
+.weather-detail span{display:block;color:#aab;font-weight:600;font-size:.88em}
+.stock-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stock-card{background:#111827;border-radius:8px;padding:10px 12px;border:1px solid #1a2332}
+.stock-name{font-size:.78em;color:#667;margin-bottom:4px}
+.stock-price{font-size:1.15em;font-weight:700;color:#dde}
+.stock-change{font-size:.75em;margin-top:2px}
+.stock-status{font-size:.65em;color:#445;margin-top:2px}
+.stock-up{color:#00e676}
+.stock-down{color:#ff5252}
+.stock-flat{color:#9e9e9e}
+.news-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.news-item{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:#0d1117;border-radius:8px;transition:background .2s}
+.news-item:hover{background:#151d2b}
+.news-domain{display:inline-block;padding:1px 7px;border-radius:4px;font-size:.65em;font-weight:600;background:#1a2332;color:#aab;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.news-title{font-size:.82em;color:#ccd;line-height:1.4;flex:1}
+.news-date{font-size:.68em;color:#556;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.automation-summary{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.automation-status-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.automation-stat{font-size:.85em;color:#aab}
+.automation-stat strong{color:#dde;font-weight:700;font-size:1em}
+.automation-rate{font-size:1.4em;font-weight:800;margin-left:auto}
+.section-subtitle{font-size:.78em;color:#556;margin-top:-10px;margin-bottom:16px}
 @media(max-width:600px){
   .kpi-grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .kpi-value{font-size:1.6em}
@@ -155,60 +97,40 @@ a{color:#00ff88;text-decoration:none}
   .heatmap-cell{padding:10px 4px}
   .heatmap-day{font-size:.9em}
   .tag{font-size:.8em;padding:1px 5px}
-  .tab-btn{padding:10px 12px;font-size:.82em;gap:4px}
-  .tab-btn .tab-label{display:none}
-  .tab-btn .tab-icon{font-size:1.3em}
-  .auto-stats{grid-template-columns:1fr}
-  .weather-main{gap:10px}
-  .weather-temp{font-size:1.6em}
-  .weather-icon{font-size:2.2em}
-  .briefing-header .briefing-date{font-size:1.1em}
+  .briefing-grid{grid-template-columns:1fr}
+  .briefing-grid .briefing-weather,.briefing-grid .briefing-stocks,.briefing-grid .briefing-news,.briefing-grid .briefing-automation{grid-column:1/3}
+  .stock-cards{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 <div class="dashboard">
   <div class="header">
-    <h1>ICBM2 대시보드</h1>
-    <div class="subtitle">자동화 성과 추적 &amp; 오늘의 브리핑</div>
-    <div class="update-time">빌드: 2026-04-16 08:32 KST</div>
+    <h1>ICBM2 자동화 대시보드</h1>
+    <div class="subtitle">Notion 기반 자동화 성과 추적</div>
+    <div class="update-time">마지막 업데이트: 2026-04-16 08:44 KST</div>
   </div>
-
-  <!-- Tab Navigation -->
-  <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('automation')" id="tab-automation">
-      <span class="tab-icon">📊</span>
-      <span class="tab-label">자동화 대시보드</span>
-    </button>
-    <button class="tab-btn" onclick="switchTab('briefing')" id="tab-briefing">
-      <span class="tab-icon">☀️</span>
-      <span class="tab-label">오늘의 브리핑</span>
-    </button>
-  </div>
-
-  <!-- ==================== TAB 1: AUTOMATION DASHBOARD ==================== -->
-  <div class="tab-content active" id="content-automation">
 
   <div class="kpi-grid"><div class="kpi-card" style="border-left:4px solid #ff8844">
-            <div class="kpi-label">Tistory 블로그</div>
-            <div class="kpi-value" style="color:#ff8844">203</div>
-            <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:40.6%;background:#ff8844"></div></div>
+            <div class="kpi-label">Tistory</div>
+            <div class="kpi-value" style="color:#ff8844">386</div>
+            <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:100%;background:#ff8844"></div></div>
             <div class="kpi-sub">목표: 500 개</div>
         </div><div class="kpi-card" style="border-left:4px solid #00ff88">
             <div class="kpi-label">SoS 제출</div>
-            <div class="kpi-value" style="color:#00ff88">59</div>
-            <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:49.2%;background:#00ff88"></div></div>
+            <div class="kpi-value" style="color:#00ff88">132</div>
+            <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:100%;background:#00ff88"></div></div>
             <div class="kpi-sub">목표: 120 개</div>
         </div><div class="kpi-card" style="border-left:4px solid #00bbff">
             <div class="kpi-label">봇마당 게시글</div>
-            <div class="kpi-value" style="color:#00bbff">17</div>
-            <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:48.6%;background:#00bbff"></div></div>
+            <div class="kpi-value" style="color:#00bbff">84</div>
+            <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:100%;background:#00bbff"></div></div>
             <div class="kpi-sub">목표: 35 개</div>
         </div><div class="kpi-card" style="border-left:4px solid #ff4444">
-            <div class="kpi-label">YouTube 업로드</div>
+            <div class="kpi-label">YouTube</div>
             <div class="kpi-value" style="color:#ff4444">9</div>
-            <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:15.0%;background:#ff4444"></div></div>
-            <div class="kpi-sub">숏츠 6 + 일반 3 / 60 개</div>
+            <div class="kpi-progress-bar"><div class="kpi-progress-fill" style="width:100%;background:#ff4444"></div></div>
+            <div class="kpi-sub">목표: 20 개</div>
         </div><div class="kpi-card" style="border-left:4px solid #ffcc00">
             <div class="kpi-label">크론잡 정상률</div>
             <div class="kpi-value" style="color:#ffcc00">100%</div>
@@ -217,14 +139,82 @@ a{color:#00ff88;text-decoration:none}
         </div></div>
 
   <div class="chart-container">
+    <h3 class="section-title">📋 오늘의 브리핑</h3>
+    <div class="section-subtitle">생성 시각: 2026-04-16 08:35 KST</div>
+    <div class="briefing-grid">
+        <div class="briefing-subsection briefing-weather">
+            <div class="briefing-subtitle">🌤️ 날씨</div>
+            <div class="weather-main">
+                <div class="weather-icon">☀️</div>
+                <div>
+                    <div class="weather-temp">15°C</div>
+                    <div class="weather-desc">서울 · 맑음</div>
+                </div>
+            </div>
+            <div class="weather-details">
+                <div class="weather-detail"><span>습도</span>59%</div>
+                <div class="weather-detail"><span>바람</span>6 km/h E</div>
+                <div class="weather-detail"><span>최고/최저</span>24° / 14°</div>
+            </div>
+        </div>
+        <div class="briefing-subsection briefing-stocks">
+            <div class="briefing-subtitle">📈 주식 시장</div>
+            <div class="stock-cards"><div class="stock-card">
+                <div class="stock-name">KOSPI</div>
+                <div class="stock-price">6091.39</div>
+                <div class="stock-change stock-flat">보합 (0.00%)</div>
+                <div class="stock-status">PREOPEN</div>
+            </div><div class="stock-card">
+                <div class="stock-name">KOSDAQ</div>
+                <div class="stock-price">1152.43</div>
+                <div class="stock-change stock-flat">보합 (0.00%)</div>
+                <div class="stock-status">PREOPEN</div>
+            </div></div>
+        </div>
+        <div class="briefing-subsection briefing-news">
+            <div class="briefing-subtitle">📰 AI 뉴스 <span style="color:#556;font-weight:400;font-size:.85em">(Top 5)</span></div>
+            <ul class="news-list"><li class="news-item">
+                <span class="news-domain">agent.news</span>
+                <span class="news-title">No AI agent sees HTTP headers — how ChatGPT, Perplexity, and Gemini actually ...</span>
+                <span class="news-date">2026-04-11 13:00</span>
+            </li><li class="news-item">
+                <span class="news-domain">techcrunch.com</span>
+                <span class="news-title">ChatGPT now integrates with DoorDash, Spotify, Uber — agents are ordering foo...</span>
+                <span class="news-date">2026-04-10 20:00</span>
+            </li><li class="news-item">
+                <span class="news-domain">techcrunch.com</span>
+                <span class="news-title">Copilot is 'for entertainment purposes only,' according to Microsoft's own te...</span>
+                <span class="news-date">2026-04-06 22:00</span>
+            </li><li class="news-item">
+                <span class="news-domain">openai.com</span>
+                <span class="news-title">Gradient Labs gives every bank customer an AI account manager</span>
+                <span class="news-date">2026-04-06 18:00</span>
+            </li><li class="news-item">
+                <span class="news-domain">venturebeat.com</span>
+                <span class="news-title">Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google...</span>
+                <span class="news-date">2026-04-06 15:00</span>
+            </li></ul>
+        </div>
+        <div class="briefing-subsection briefing-automation">
+            <div class="briefing-subtitle">⚙️ 자동화 상태</div>
+            <div class="automation-summary">
+                <div class="automation-status-dot" style="background:#00e676"></div>
+                <div class="automation-stat">전체 <strong>35</strong>개 / 활성 <strong>34</strong>개</div>
+                <div class="automation-rate" style="color:#00e676">82.9%</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <div class="chart-container">
     <h3 class="section-title">📈 활동 트렌드 (최근 30일)</h3>
     <svg viewBox="0 0 700 250" class="trend-chart" preserveAspectRatio="xMidYMid meet">
-        <rect x="50" y="2" width="12" height="12" rx="2" fill="#ff8844" opacity="0.85"/><text x="66" y="12" fill="#ccc" font-size="11">Tistory</text><rect x="155" y="2" width="12" height="12" rx="2" fill="#aa88ff" opacity="0.85"/><text x="171" y="12" fill="#ccc" font-size="11">시스템</text><rect x="260" y="2" width="12" height="12" rx="2" fill="#00ff88" opacity="0.85"/><text x="276" y="12" fill="#ccc" font-size="11">SoS 제출</text><rect x="365" y="2" width="12" height="12" rx="2" fill="#00bbff" opacity="0.85"/><text x="381" y="12" fill="#ccc" font-size="11">봇마당</text><rect x="470" y="2" width="12" height="12" rx="2" fill="#ff4444" opacity="0.85"/><text x="486" y="12" fill="#ccc" font-size="11">YouTube</text>
+        <rect x="50" y="2" width="12" height="12" rx="2" fill="#ff8844" opacity="0.85"/><text x="66" y="12" fill="#ccc" font-size="11">Tistory</text><rect x="135" y="2" width="12" height="12" rx="2" fill="#00ff88" opacity="0.85"/><text x="151" y="12" fill="#ccc" font-size="11">SoS 제출</text><rect x="213" y="2" width="12" height="12" rx="2" fill="#00bbff" opacity="0.85"/><text x="229" y="12" fill="#ccc" font-size="11">봇마당 게시글</text><rect x="298" y="2" width="12" height="12" rx="2" fill="#ff4444" opacity="0.85"/><text x="314" y="12" fill="#ccc" font-size="11">YouTube</text><rect x="383" y="2" width="12" height="12" rx="2" fill="#ffcc00" opacity="0.85"/><text x="399" y="12" fill="#ccc" font-size="11">크론잡 정상률</text>
         <line x1="50" y1="30" x2="50" y2="210" stroke="#333" stroke-width="1"/>
         <line x1="50" y1="210" x2="680" y2="210" stroke="#333" stroke-width="1"/>
-        <line x1="50" y1="165" x2="680" y2="165" stroke="#222" stroke-width="0.5" stroke-dasharray="4"/><line x1="50" y1="120" x2="680" y2="120" stroke="#222" stroke-width="0.5" stroke-dasharray="4"/><line x1="50" y1="75" x2="680" y2="75" stroke="#222" stroke-width="0.5" stroke-dasharray="4"/>
-        <polyline points="50.0,210.0 140.0,210.0 230.0,210.0 320.0,193.0 410.0,186.3 500.0,181.0 590.0,196.2 680.0,201.1" fill="none" stroke="#ff8844" stroke-width="2" opacity="0.85"/><polyline points="50.0,210.0 140.0,210.0 230.0,210.0 320.0,40.2 410.0,31.3 500.0,35.2 590.0,30.0 680.0,199.3" fill="none" stroke="#aa88ff" stroke-width="2" opacity="0.85"/><polyline points="50.0,210.0 140.0,210.0 230.0,200.9 320.0,199.6 410.0,199.6 500.0,209.2 590.0,208.2 680.0,210.0" fill="none" stroke="#00ff88" stroke-width="2" opacity="0.85"/><polyline points="50.0,210.0 140.0,206.9 230.0,206.3 320.0,204.5 410.0,204.0 500.0,209.5 590.0,208.4 680.0,210.0" fill="none" stroke="#00bbff" stroke-width="2" opacity="0.85"/><polyline points="50.0,210.0 140.0,210.0 230.0,210.0 320.0,210.0 410.0,210.0 500.0,210.0 590.0,210.0 680.0,207.7" fill="none" stroke="#ff4444" stroke-width="2" opacity="0.85"/>
-        <text x="42" y="34" text-anchor="end" fill="#888" font-size="11">690</text><text x="42" y="214" text-anchor="end" fill="#888" font-size="11">0</text><text x="42" y="169" text-anchor="end" fill="#888" font-size="11">172</text><text x="42" y="124" text-anchor="end" fill="#888" font-size="11">345</text><text x="42" y="79" text-anchor="end" fill="#888" font-size="11">517</text>
+        <line x1="50" y1="75.0" x2="680" y2="75.0" stroke="#222" stroke-width="0.5" stroke-dasharray="4"/><line x1="50" y1="120.0" x2="680" y2="120.0" stroke="#222" stroke-width="0.5" stroke-dasharray="4"/><line x1="50" y1="165.0" x2="680" y2="165.0" stroke="#222" stroke-width="0.5" stroke-dasharray="4"/>
+        <polyline points="50.0,210.0 140.0,210.0 230.0,210.0 320.0,189.0 410.0,180.6 500.0,174.2 590.0,192.9 680.0,188.7" fill="none" stroke="#ff8844" stroke-width="2.5" opacity="0.85"/><polyline points="50.0,210.0 140.0,210.0 230.0,198.7 320.0,197.1 410.0,197.1 500.0,209.0 590.0,207.7 680.0,207.7" fill="none" stroke="#00ff88" stroke-width="2.5" opacity="0.85"/><polyline points="50.0,210.0 140.0,206.1 230.0,205.5 320.0,203.2 410.0,202.6 500.0,209.4 590.0,208.1 680.0,208.1" fill="none" stroke="#00bbff" stroke-width="2.5" opacity="0.85"/><polyline points="50.0,210.0 140.0,210.0 230.0,210.0 320.0,210.0 410.0,210.0 500.0,210.0 590.0,210.0 680.0,207.1" fill="none" stroke="#ff4444" stroke-width="2.5" opacity="0.85"/><polyline points="50.0,30.0 140.0,138.7 230.0,134.2 320.0,210.0 410.0,210.0 500.0,210.0 590.0,210.0 680.0,210.0" fill="none" stroke="#ffcc00" stroke-width="2.5" opacity="0.85"/>
+        <text x="42" y="34" text-anchor="end" fill="#888" font-size="11">558</text><text x="42" y="214" text-anchor="end" fill="#888" font-size="11">0</text>
         <text x="50" y="245" text-anchor="middle" fill="#888" font-size="11">04-09</text><text x="140" y="245" text-anchor="middle" fill="#888" font-size="11">04-10</text><text x="230" y="245" text-anchor="middle" fill="#888" font-size="11">04-11</text><text x="320" y="245" text-anchor="middle" fill="#888" font-size="11">04-12</text><text x="410" y="245" text-anchor="middle" fill="#888" font-size="11">04-13</text><text x="500" y="245" text-anchor="middle" fill="#888" font-size="11">04-14</text><text x="590" y="245" text-anchor="middle" fill="#888" font-size="11">04-15</text><text x="680" y="245" text-anchor="middle" fill="#888" font-size="11">04-16</text>
     </svg>
   </div>
@@ -237,50 +227,62 @@ a{color:#00ff88;text-decoration:none}
             <span class="bar-value">3,398</span>
         </div><div class="bar-row">
             <span class="bar-label">크론잡</span>
-            <div class="bar-track"><div class="bar-fill" style="width:29.8%;background:#ffcc00"></div></div>
+            <div class="bar-track"><div class="bar-fill" style="width:29.839326702371842%;background:#ffcc00"></div></div>
             <span class="bar-value">1,014</span>
         </div><div class="bar-row">
             <span class="bar-label">Tistory</span>
-            <div class="bar-track"><div class="bar-fill" style="width:11.4%;background:#ff8844"></div></div>
+            <div class="bar-track"><div class="bar-fill" style="width:11.3589547407451%;background:#ff8844"></div></div>
             <span class="bar-value">386</span>
         </div><div class="bar-row">
             <span class="bar-label">Ship or Slop</span>
-            <div class="bar-track"><div class="bar-fill" style="width:3.9%;background:#00ff88"></div></div>
+            <div class="bar-track"><div class="bar-fill" style="width:3.8844093932081685%;background:#00ff88"></div></div>
             <span class="bar-value">132</span>
         </div><div class="bar-row">
             <span class="bar-label">봇마당</span>
-            <div class="bar-track"><div class="bar-fill" style="width:2.5%;background:#00bbff"></div></div>
+            <div class="bar-track"><div class="bar-fill" style="width:2.4718968865870163%;background:#00bbff"></div></div>
             <span class="bar-value">84</span>
         </div><div class="bar-row">
+            <span class="bar-label">iOS 트렌드</span>
+            <div class="bar-track"><div class="bar-fill" style="width:1.3242304749573304%;background:#888"></div></div>
+            <span class="bar-value">45</span>
+        </div><div class="bar-row">
+            <span class="bar-label">AI 모델 트래커</span>
+            <div class="bar-track"><div class="bar-fill" style="width:0.9416750044141016%;background:#888"></div></div>
+            <span class="bar-value">32</span>
+        </div><div class="bar-row">
             <span class="bar-label">YouTube</span>
-            <div class="bar-track"><div class="bar-fill" style="width:0.3%;background:#ff4444"></div></div>
+            <div class="bar-track"><div class="bar-fill" style="width:0.26484609499146605%;background:#ff4444"></div></div>
             <span class="bar-value">9</span>
+        </div><div class="bar-row">
+            <span class="bar-label">아이디어 노트</span>
+            <div class="bar-track"><div class="bar-fill" style="width:0.05885468777588135%;background:#888"></div></div>
+            <span class="bar-value">2</span>
         </div></div>
   </div>
 
   <div class="chart-container">
     <h3 class="section-title">📅 요일별 활동 패턴 (평균)</h3>
-    <div class="heatmap-grid"><div class="heatmap-cell" style="background:rgb(20,61,53);border:2px solid #333">
+    <div class="heatmap-grid"><div class="heatmap-cell" style="background:rgb(20,99,69);border:2px solid #333">
             <div class="heatmap-day">월</div>
-            <div class="heatmap-avg">7.9</div>
-        </div><div class="heatmap-cell" style="background:rgb(20,34,42);border:2px solid #333">
+            <div class="heatmap-avg">15.4</div>
+        </div><div class="heatmap-cell" style="background:rgb(20,117,77);border:2px solid #333">
             <div class="heatmap-day">화</div>
-            <div class="heatmap-avg">1.2</div>
-        </div><div class="heatmap-cell" style="background:rgb(20,42,45);border:2px solid #333">
+            <div class="heatmap-avg">19.3</div>
+        </div><div class="heatmap-cell" style="background:rgb(20,79,61);border:2px solid #333">
             <div class="heatmap-day">수</div>
-            <div class="heatmap-avg">3.2</div>
+            <div class="heatmap-avg">11.0</div>
         </div><div class="heatmap-cell" style="background:rgb(20,255,136);border:2px solid #00ff88">
             <div class="heatmap-day">목</div>
-            <div class="heatmap-avg">57.1</div>
-        </div><div class="heatmap-cell" style="background:rgb(20,144,88);border:2px solid #333">
+            <div class="heatmap-avg">49.7</div>
+        </div><div class="heatmap-cell" style="background:rgb(20,161,96);border:2px solid #333">
             <div class="heatmap-day">금</div>
             <div class="heatmap-avg">29.1</div>
-        </div><div class="heatmap-cell" style="background:rgb(20,123,79);border:2px solid #333">
+        </div><div class="heatmap-cell" style="background:rgb(20,137,85);border:2px solid #333">
             <div class="heatmap-day">토</div>
             <div class="heatmap-avg">23.7</div>
-        </div><div class="heatmap-cell" style="background:rgb(20,59,52);border:2px solid #333">
+        </div><div class="heatmap-cell" style="background:rgb(20,87,64);border:2px solid #333">
             <div class="heatmap-day">일</div>
-            <div class="heatmap-avg">7.6</div>
+            <div class="heatmap-avg">12.6</div>
         </div></div>
   </div>
 
@@ -291,24 +293,24 @@ a{color:#00ff88;text-decoration:none}
         <thead><tr><th>날짜</th><th>카테고리별 활동</th><th>합계</th></tr></thead>
         <tbody><tr>
             <td class="date-cell">2026-04-16</td>
-            <td class="cats-cell"><span class="tag" style="color:#aa88ff;border-color:#aa88ff40">시스템: 700</span> <span class="tag" style="color:#ff8844;border-color:#ff884440">Tistory: 66</span> <span class="tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 7</span> <span class="tag" style="color:#00bbff;border-color:#00bbff40">봇마당: 6</span> <span class="tag" style="color:#ff4444;border-color:#ff444440">YouTube: 9</span> </td>
-            <td class="total-cell"><strong>788</strong></td>
+            <td class="cats-cell"><span class="tag" style="color:#ff8844;border-color:#ff884440">Tistory: 66</span> <span class="tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 7</span> <span class="tag" style="color:#00bbff;border-color:#00bbff40">봇마당 게시글: 6</span> <span class="tag" style="color:#ff4444;border-color:#ff444440">YouTube: 9</span> <span class="tag" style="color:#ffcc00;border-color:#ffcc0040">크론잡 정상률: 0</span> </td>
+            <td class="total-cell"><strong>88</strong></td>
         </tr><tr>
             <td class="date-cell">2026-04-15</td>
-            <td class="cats-cell"><span class="tag" style="color:#aa88ff;border-color:#aa88ff40">시스템: 690</span> <span class="tag" style="color:#ff8844;border-color:#ff884440">Tistory: 53</span> <span class="tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 7</span> <span class="tag" style="color:#00bbff;border-color:#00bbff40">봇마당: 6</span> </td>
-            <td class="total-cell"><strong>756</strong></td>
+            <td class="cats-cell"><span class="tag" style="color:#ff8844;border-color:#ff884440">Tistory: 53</span> <span class="tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 7</span> <span class="tag" style="color:#00bbff;border-color:#00bbff40">봇마당 게시글: 6</span> <span class="tag" style="color:#ff4444;border-color:#ff444440">YouTube: 0</span> <span class="tag" style="color:#ffcc00;border-color:#ffcc0040">크론잡 정상률: 0</span> </td>
+            <td class="total-cell"><strong>66</strong></td>
         </tr><tr>
             <td class="date-cell">2026-04-14</td>
-            <td class="cats-cell"><span class="tag" style="color:#aa88ff;border-color:#aa88ff40">시스템: 670</span> <span class="tag" style="color:#ff8844;border-color:#ff884440">Tistory: 111</span> <span class="tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 3</span> <span class="tag" style="color:#00bbff;border-color:#00bbff40">봇마당: 2</span> </td>
-            <td class="total-cell"><strong>786</strong></td>
+            <td class="cats-cell"><span class="tag" style="color:#ff8844;border-color:#ff884440">Tistory: 111</span> <span class="tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 3</span> <span class="tag" style="color:#00bbff;border-color:#00bbff40">봇마당 게시글: 2</span> <span class="tag" style="color:#ff4444;border-color:#ff444440">YouTube: 0</span> <span class="tag" style="color:#ffcc00;border-color:#ffcc0040">크론잡 정상률: 0</span> </td>
+            <td class="total-cell"><strong>116</strong></td>
         </tr><tr>
             <td class="date-cell">2026-04-13</td>
-            <td class="cats-cell"><span class="tag" style="color:#aa88ff;border-color:#aa88ff40">시스템: 685</span> <span class="tag" style="color:#ff8844;border-color:#ff884440">Tistory: 91</span> <span class="tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 40</span> <span class="tag" style="color:#00bbff;border-color:#00bbff40">봇마당: 23</span> </td>
-            <td class="total-cell"><strong>839</strong></td>
+            <td class="cats-cell"><span class="tag" style="color:#ff8844;border-color:#ff884440">Tistory: 91</span> <span class="tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 40</span> <span class="tag" style="color:#00bbff;border-color:#00bbff40">봇마당 게시글: 23</span> <span class="tag" style="color:#ff4444;border-color:#ff444440">YouTube: 0</span> <span class="tag" style="color:#ffcc00;border-color:#ffcc0040">크론잡 정상률: 0</span> </td>
+            <td class="total-cell"><strong>154</strong></td>
         </tr><tr>
             <td class="date-cell">2026-04-12</td>
-            <td class="cats-cell"><span class="tag" style="color:#aa88ff;border-color:#aa88ff40">시스템: 651</span> <span class="tag" style="color:#ff8844;border-color:#ff884440">Tistory: 65</span> <span class="tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 40</span> <span class="tag" style="color:#00bbff;border-color:#00bbff40">봇마당: 21</span> </td>
-            <td class="total-cell"><strong>777</strong></td>
+            <td class="cats-cell"><span class="tag" style="color:#ff8844;border-color:#ff884440">Tistory: 65</span> <span class="tag" style="color:#00ff88;border-color:#00ff8840">SoS 제출: 40</span> <span class="tag" style="color:#00bbff;border-color:#00bbff40">봇마당 게시글: 21</span> <span class="tag" style="color:#ff4444;border-color:#ff444440">YouTube: 0</span> <span class="tag" style="color:#ffcc00;border-color:#ffcc0040">크론잡 정상률: 0</span> </td>
+            <td class="total-cell"><strong>126</strong></td>
         </tr></tbody>
       </table>
     </div>
@@ -318,12 +320,12 @@ a{color:#00ff88;text-decoration:none}
     <h3 class="section-title">🎯 월간 KPI 목표 달성률</h3>
     <div class="kpi-goals"><div class="kpi-goal-row">
             <div class="kpi-goal-header">
-                <span class="kpi-goal-cat" style="color:#ff8844">Tistory</span>
-                <span class="kpi-goal-name">블로그 발행</span>
-                <span class="kpi-goal-values">203 / 500 개</span>
+                <span class="kpi-goal-cat" style="color:#00bbff">봇마당</span>
+                <span class="kpi-goal-name">게시글</span>
+                <span class="kpi-goal-values">17 / 35 개</span>
             </div>
-            <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:40.6%;background:#ff8844"></div></div>
-            <div class="kpi-goal-pct">40.6%</div>
+            <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:48.6%;background:#00bbff"></div></div>
+            <div class="kpi-goal-pct">48.6%</div>
         </div><div class="kpi-goal-row">
             <div class="kpi-goal-header">
                 <span class="kpi-goal-cat" style="color:#00ff88">Ship or Slop</span>
@@ -334,339 +336,40 @@ a{color:#00ff88;text-decoration:none}
             <div class="kpi-goal-pct">49.2%</div>
         </div><div class="kpi-goal-row">
             <div class="kpi-goal-header">
-                <span class="kpi-goal-cat" style="color:#00bbff">봇마당</span>
-                <span class="kpi-goal-name">게시글</span>
-                <span class="kpi-goal-values">17 / 35 개</span>
-            </div>
-            <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:48.6%;background:#00bbff"></div></div>
-            <div class="kpi-goal-pct">48.6%</div>
-        </div><div class="kpi-goal-row">
-            <div class="kpi-goal-header">
-                <span class="kpi-goal-cat" style="color:#ff4444">YouTube</span>
-                <span class="kpi-goal-name">숏츠 업로드</span>
-                <span class="kpi-goal-values">6 / 40 개</span>
-            </div>
-            <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:15.0%;background:#ff4444"></div></div>
-            <div class="kpi-goal-pct">15.0%</div>
-        </div><div class="kpi-goal-row">
-            <div class="kpi-goal-header">
-                <span class="kpi-goal-cat" style="color:#ff4444">YouTube</span>
-                <span class="kpi-goal-name">일반 영상 업로드</span>
-                <span class="kpi-goal-values">3 / 20 개</span>
-            </div>
-            <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:15.0%;background:#ff4444"></div></div>
-            <div class="kpi-goal-pct">15.0%</div>
-        </div><div class="kpi-goal-row">
-            <div class="kpi-goal-header">
                 <span class="kpi-goal-cat" style="color:#ffcc00">크론잡</span>
                 <span class="kpi-goal-name">정상 작동률</span>
                 <span class="kpi-goal-values">100 / 90 %</span>
             </div>
             <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:100%;background:#ffcc00"></div></div>
-            <div class="kpi-goal-pct">111.1% 🎉</div>
+            <div class="kpi-goal-pct">100.0%</div>
+        </div><div class="kpi-goal-row">
+            <div class="kpi-goal-header">
+                <span class="kpi-goal-cat" style="color:#ff4444">YouTube</span>
+                <span class="kpi-goal-name">YouTube 일반 영상 업로드</span>
+                <span class="kpi-goal-values">3 / 20 개</span>
+            </div>
+            <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:15%;background:#ff4444"></div></div>
+            <div class="kpi-goal-pct">15.0%</div>
+        </div><div class="kpi-goal-row">
+            <div class="kpi-goal-header">
+                <span class="kpi-goal-cat" style="color:#ff8844">Tistory</span>
+                <span class="kpi-goal-name">Tistory 블로그 발행</span>
+                <span class="kpi-goal-values">203 / 500 개</span>
+            </div>
+            <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:40.6%;background:#ff8844"></div></div>
+            <div class="kpi-goal-pct">40.6%</div>
+        </div><div class="kpi-goal-row">
+            <div class="kpi-goal-header">
+                <span class="kpi-goal-cat" style="color:#ff4444">YouTube</span>
+                <span class="kpi-goal-name">YouTube 숏츠 업로드</span>
+                <span class="kpi-goal-values">6 / 40 개</span>
+            </div>
+            <div class="kpi-goal-bar"><div class="kpi-goal-fill" style="width:15%;background:#ff4444"></div></div>
+            <div class="kpi-goal-pct">15.0%</div>
         </div></div>
   </div>
 
-  </div>
-  <!-- END TAB 1 -->
-
-  <!-- ==================== TAB 2: TODAY'S BRIEFING ==================== -->
-  <div class="tab-content" id="content-briefing">
-    <div id="briefing-container">
-      <!-- Populated by JS from briefingData -->
-      <div class="no-data">브리핑 데이터를 불러오는 중...</div>
-    </div>
-  </div>
-  <!-- END TAB 2 -->
-
-  <div class="footer">ICBM2 Dashboard v2.0 · Auto-deployed via GitHub Pages</div>
+  <div class="footer">ICBM2 Dashboard v1.0 · Powered by Notion API · Auto-deployed via GitHub Pages</div>
 </div>
-
-<script>
-// ==================== BRIEFING DATA ====================
-var briefingData = null;
-var briefingLoaded = false;
-
-function loadBriefingData() {
-  if (briefingLoaded) return;
-  briefingLoaded = true;
-  fetch('data/briefing_latest.json')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      briefingData = data;
-      if (document.getElementById('content-briefing').classList.contains('active')) {
-        renderBriefing();
-      }
-    })
-    .catch(function(e) {
-      console.error('Failed to load briefing data:', e);
-      document.getElementById('briefing-container').innerHTML = '<div class="no-data">⚠️ 브리핑 데이터를 불러올 수 없습니다</div>';
-    });
-}
-
-// Auto-load briefing data on page load
-document.addEventListener('DOMContentLoaded', loadBriefingData);
-
-// ==================== TAB SWITCHING ====================
-function switchTab(tabName) {
-  document.querySelectorAll('.tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
-  document.querySelectorAll('.tab-content').forEach(function(content) { content.classList.remove('active'); });
-  document.getElementById('tab-' + tabName).classList.add('active');
-  document.getElementById('content-' + tabName).classList.add('active');
-  if (tabName === 'briefing') { loadBriefingData(); }
-}
-
-// ==================== BRIEFING RENDERER ====================
-function renderBriefing() {
-  var container = document.getElementById('briefing-container');
-  var d = briefingData;
-  if (!d || !d.generated_at) {
-    container.innerHTML = '<div class="no-data">⚠️ 브리핑 데이터를 사용할 수 없습니다</div>';
-    return;
-  }
-
-  var html = '';
-
-  // --- Briefing Header ---
-  html += '<div class="briefing-header">';
-  var dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-  html += '<div class="briefing-date">📋 ' + (d.generated_at_display || '') + ' (' + (d.day_of_week || '') + ') 오늘의 브리핑</div>';
-  if (d.is_weekend) {
-    html += '<div class="briefing-note" style="color:#ffcc00">🏖️ 주말입니다 — 시장 데이터는 금요일 종가 기준</div>';
-  }
-  html += '<div class="briefing-updated">업데이트: ' + escapeHtml(d.generated_at_display || '') + '</div>';
-  html += '</div>';
-
-  // --- Grid Layout ---
-  html += '<div class="briefing-grid">';
-
-  // ---- WEATHER CARD ----
-  html += renderWeatherCard(d.weather);
-
-  // ---- STOCKS CARD ----
-  html += renderStocksCard(d.stocks);
-
-  // ---- NEWS CARD (full width) ----
-  html += renderNewsCard(d.news);
-
-  // ---- AUTOMATION PERFORMANCE CARD ----
-  html += renderAutomationCard(d.automation);
-
-  html += '</div>'; // end briefing-grid
-
-  container.innerHTML = html;
-}
-
-function getWeatherIcon(code) {
-  code = parseInt(code) || 0;
-  if (code === 113) return '☀️';
-  if (code === 116) return '⛅';
-  if (code <= 119) return '☁️';
-  if (code >= 176 && code <= 311) return '🌧️';
-  if (code >= 320 && code <= 395) return '❄️';
-  if (code >= 200 && code <= 232) return '⛈️';
-  return '🌡️';
-}
-
-function renderWeatherCard(w) {
-  if (!w) return '';
-  var html = '<div class="briefing-card">';
-  html += '<div class="briefing-card-title"><span class="card-icon">🌤️</span> 날씨 — ' + escapeHtml(w.location || '서울') + '</div>';
-  html += '<div class="weather-main">';
-  html += '<div class="weather-icon">' + getWeatherIcon(w.weather_code) + '</div>';
-  html += '<div><div class="weather-temp">' + (w.max_temp_c != null ? w.max_temp_c : '-') + '°<span class="unit"> / ' + (w.min_temp_c != null ? w.min_temp_c : '-') + '°</span></div>';
-  html += '<div class="weather-condition">' + escapeHtml(w.weather_desc_ko || w.weather_desc_en || '') + '</div>';
-  if (w.feels_like_c != null) html += '<div style="color:#667;font-size:.8em">체감 ' + w.feels_like_c + '°</div>';
-  html += '</div></div>';
-  html += '<div class="weather-details">';
-  html += weatherDetail('습도', (w.humidity != null ? w.humidity : '-') + '%');
-  html += weatherDetail('바람', escapeHtml((w.wind_dir || '') + ' ' + (w.wind_speed_kmph || 0) + 'km/h'));
-  html += weatherDetail('강수량', (w.precip_mm != null ? w.precip_mm : '0') + 'mm');
-  html += weatherDetail('자외선', w.uv_index != null ? (w.uv_index <= 2 ? '낮음' : w.uv_index <= 5 ? '보통' : w.uv_index <= 7 ? '높음' : '매우 높음') : '-');
-  html += '</div></div>';
-  return html;
-}
-
-function weatherDetail(label, value) {
-  return '<div class="weather-detail"><span class="weather-detail-label">' + label + '</span><span class="weather-detail-value">' + value + '</span></div>';
-}
-
-function renderStocksCard(s) {
-  if (!s) return '';
-  var html = '<div class="briefing-card">';
-  html += '<div class="briefing-card-title"><span class="card-icon">💹</span> 주식 시황</div>';
-
-  // Korean stocks
-  if (s.korean) {
-    var kr = s.korean;
-    if (kr.KOSPI) html += renderStockRow('코스피', kr.KOSPI.close_price, kr.KOSPI.fluctuation_ratio, kr.KOSPI.change_text_ko, kr.KOSPI.market_status);
-    if (kr.KOSDAQ) html += renderStockRow('코스닥', kr.KOSDAQ.close_price, kr.KOSDAQ.fluctuation_ratio, kr.KOSDAQ.change_text_ko, kr.KOSDAQ.market_status);
-  }
-
-  // US stocks
-  if (s.us) {
-    var us = s.us;
-    if (us['S&P500']) html += renderStockRow('S&P 500', us['S&P500'].price, us['S&P500'].change_pct, us['S&P500'].change_text_ko, us['S&P500'].market_status);
-    if (us.NASDAQ) html += renderStockRow('NASDAQ', us.NASDAQ.price, us.NASDAQ.change_pct, us.NASDAQ.change_text_ko, us.NASDAQ.market_status);
-  }
-
-  if (s.is_weekend && s.weekend_note) {
-    html += '<div style="color:#ffcc00;font-size:.78em;margin:6px 0">🏖️ ' + escapeHtml(s.weekend_note) + '</div>';
-  }
-
-  html += '</div>';
-  return html;
-}
-
-function renderStockRow(name, price, changePct, changeText, marketStatus) {
-  var pct = parseFloat(changePct) || 0;
-  var cls = pct > 0 ? 'up' : pct < 0 ? 'down' : 'flat';
-  var statusBadge = '';
-  if (marketStatus && marketStatus !== 'CLOSED' && marketStatus !== 'UNKNOWN') {
-    statusBadge = ' <span style="color:#556;font-size:.7em">[' + marketStatus + ']</span>';
-  }
-  return '<div class="stock-item">' +
-    '<span class="stock-name">' + escapeHtml(name) + statusBadge + '</span>' +
-    '<span class="stock-value">' + formatNumber(parseFloat(price)) + '</span>' +
-    '<span class="stock-change ' + cls + '">' + escapeHtml(changeText || '') + (pct !== 0 ? ' (' + (pct > 0 ? '+' : '') + pct.toFixed(2) + '%)' : '') + '</span>' +
-    '</div>';
-}
-
-function renderNewsCard(news) {
-  if (!news || !news.items || news.items.length === 0) return '';
-  var html = '<div class="briefing-card full-width">';
-  html += '<div class="briefing-card-title"><span class="card-icon">📰</span> AI / 기술 뉴스 <span style="color:#556;font-size:.75em;font-weight:normal">(' + news.items.length + '건)</span></div>';
-  html += '<div class="news-list">';
-  var count = Math.min(news.items.length, 10);
-  for (var i = 0; i < count; i++) {
-    var n = news.items[i];
-    var catClass = (n.category === 'insight') ? 'agent' : (n.category === 'tool' || n.category === 'infrastructure') ? 'tool' : 'general';
-    var catLabel = n.category === 'insight' ? 'AgentNews' : n.category === 'tool' ? '도구' : n.category === 'infrastructure' ? '인프라' : (n.domain || '뉴스');
-    var isHighlight = n.type === 'top' || n.points > 2;
-    html += '<div class="news-item' + (isHighlight ? ' highlight-news' : '') + '">';
-    html += '<div class="news-item-header">';
-    html += '<span class="news-tag ' + catClass + '">' + escapeHtml(catLabel) + '</span>';
-    if (n.vote_count > 0) html += '<span style="color:#556;font-size:.72em">▲' + n.vote_count + '</span>';
-    html += '</div>';
-    html += '<div class="news-title"><a href="' + escapeHtml(n.url || '#') + '" target="_blank" rel="noopener">' + escapeHtml(n.title) + '</a></div>';
-    html += '</div>';
-  }
-  html += '</div></div>';
-  return html;
-}
-
-function renderAutomationCard(a) {
-  if (!a) return '';
-  var html = '<div class="briefing-card full-width">';
-  html += '<div class="briefing-card-title"><span class="card-icon">🤖</span> 자동화 성과</div>';
-  html += '<div class="auto-stats">';
-
-  // Cron jobs summary
-  if (a.cron) {
-    var cr = a.cron;
-    var rate = cr.success_rate || 0;
-    html += '<div class="auto-stat-item">';
-    html += '<div class="auto-stat-label">⏰ 크론잡</div>';
-    html += '<div class="auto-stat-value" style="color:#ffcc00">' + rate.toFixed(0) + '%</div>';
-    html += '<div class="auto-stat-sub">활성 ' + (cr.enabled_jobs || 0) + ' / 전체 ' + (cr.total_jobs || 0) + '</div>';
-    html += '</div>';
-
-    // Cron health bar
-    var barColor = rate >= 90 ? '#00ff88' : rate >= 70 ? '#ffcc00' : '#ff4444';
-    html += '<div class="cron-health" style="grid-column: span 2">';
-    html += '<div class="cron-bar"><div class="cron-bar-fill" style="width:' + Math.min(rate, 100) + '%;background:' + barColor + '"></div></div>';
-    html += '<div class="cron-detail"><span>정상 작동률</span><span>' + rate.toFixed(0) + '%</span></div>';
-    html += '</div>';
-  }
-
-  // Botmadang
-  if (a.botmadang) {
-    var bm = a.botmadang;
-    html += '<div class="auto-stat-item">';
-    html += '<div class="auto-stat-label">💬 봇마당</div>';
-    html += '<div class="auto-stat-value" style="color:#00bbff">' + (bm.total_posts || 0) + '</div>';
-    html += '<div class="auto-stat-sub">총 게시글</div>';
-    html += '</div>';
-  }
-
-  // Ship or Slop
-  if (a.sos) {
-    var sos = a.sos;
-    var bestFw = null;
-    if (sos.frameworks) {
-      for (var fi = 0; fi < sos.frameworks.length; fi++) {
-        if (sos.frameworks[fi].ship_rate > 0 && (!bestFw || sos.frameworks[fi].ship_rate > bestFw.ship_rate)) {
-          bestFw = sos.frameworks[fi];
-        }
-      }
-    }
-    html += '<div class="auto-stat-item">';
-    html += '<div class="auto-stat-label">🚀 Ship or Slop</div>';
-    html += '<div class="auto-stat-value" style="color:#00ff88">' + (sos.total_submissions || 0) + '</div>';
-    html += '<div class="auto-stat-sub">총 제출' + (bestFw ? ' · 최고 ' + bestFw.name + ' ' + bestFw.ship_rate + '%' : '') + '</div>';
-    html += '</div>';
-  }
-
-  // Blog
-  if (a.blog) {
-    var bl = a.blog;
-    html += '<div class="auto-stat-item">';
-    html += '<div class="auto-stat-label">📝 블로그</div>';
-    html += '<div class="auto-stat-value" style="color:#ff8844">' + (bl.total_posts || 0) + '</div>';
-    var grades = [];
-    if (bl.by_grade) {
-      for (var g in bl.by_grade) { grades.push(g + '급 ' + bl.by_grade[g]); }
-    }
-    html += '<div class="auto-stat-sub">' + (grades.length > 0 ? grades.join(' · ') : '발행됨') + '</div>';
-    html += '</div>';
-  }
-
-  html += '</div>'; // end auto-stats
-  html += '</div>';
-  return html;
-}
-
-// ==================== HELPERS ====================
-function escapeHtml(text) {
-  if (!text) return '';
-  var div = document.createElement('div');
-  div.appendChild(document.createTextNode(text));
-  return div.innerHTML;
-}
-
-function formatNumber(n) {
-  if (n === undefined || n === null) return '-';
-  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-function formatChange(c) {
-  if (c === undefined || c === null) return '-';
-  var sign = c >= 0 ? '+' : '';
-  return sign + c.toFixed(1) + '%';
-}
-
-function changeClass(c) {
-  if (c === undefined || c === null || c === 0) return 'flat';
-  return c > 0 ? 'up' : 'down';
-}
-
-function formatDate(dateStr) {
-  if (!dateStr) return '';
-  var parts = dateStr.split('-');
-  if (parts.length !== 3) return dateStr;
-  var days = ['일', '월', '화', '수', '목', '금', '토'];
-  var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
-  var dayName = days[d.getDay()];
-  return parseInt(parts[1]) + '월 ' + parseInt(parts[2]) + '일 (' + dayName + ')';
-}
-
-// Auto-render if briefing tab is somehow visible on load
-document.addEventListener('DOMContentLoaded', function() {
-  // Check URL hash for direct briefing link
-  if (window.location.hash === '#briefing') {
-    switchTab('briefing');
-  }
-});
-</script>
 </body>
 </html>
