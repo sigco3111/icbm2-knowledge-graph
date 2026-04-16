@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-04-16 12:31 KST",
+  "generated_at": "2026-04-17 00:31 KST",
   "status": "주의",
   "status_msg": "일부 지표 주의 필요",
   "anomalies": [
     {
       "level": "warning",
-      "msg": "⚠️ 활동량 감소 감지: 오늘 7건 (7일 평균 31.3건의 50% 미만)"
+      "msg": "⚠️ 활동량 감소 감지: 오늘 8건 (7일 평균 34.4건의 50% 미만)"
     },
     {
       "level": "warning",
@@ -13,18 +13,18 @@
     }
   ],
   "insights": [
-    "📈 Ship or Slop 주간 추이: 전주 대비 +57건",
-    "🏆 가장 활발한 카테고리: Ship or Slop (9건)",
+    "📈 Ship or Slop 주간 추이: 전주 대비 +64건",
+    "🏆 가장 활발한 카테고리: Ship or Slop (11건)",
     "💬 봇마당: 연속 3일 활동 기록",
-    "📝 Tistory: 누적 32개 발행"
+    "📝 Tistory: 누적 38개 발행"
   ],
   "daily_targets": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "current": 5,
+      "current": 6,
       "target": 10,
-      "bar": "█████░░░░░",
-      "pct": "50%"
+      "bar": "██████░░░░",
+      "pct": "60%"
     }
   ],
   "kpi_achievement": [
@@ -56,10 +56,10 @@
   "predictions": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "current": 57,
-      "predicted": 65,
+      "current": 64,
+      "predicted": 73,
       "target": 200,
-      "avg_daily": 8.1,
+      "avg_daily": 9.1,
       "note": "가속 필요"
     },
     {
@@ -74,7 +74,7 @@
   "growth_rates": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "value": 57,
+      "value": 64,
       "mom": "N/A (첫 달)"
     },
     {
@@ -86,27 +86,27 @@
   "patterns": {
     "busiest_day": "월",
     "busiest_avg": 859.6,
-    "quietest_day": "금",
-    "quietest_avg": 233.0,
-    "balance": "가장 활발한 요일: 월 (평균 859.6건)\n가장 조용한 요일: 금 (평균 233.0건)\n균형형: 주중/주말 활동량 비슷 (1.2배)"
+    "quietest_day": "토",
+    "quietest_avg": 284.0,
+    "balance": "가장 활발한 요일: 월 (평균 859.6건)\n가장 조용한 요일: 토 (평균 284.0건)\n균형형: 주중/주말 활동량 비슷 (1.3배)"
   },
   "week_over_week": {
-    "Ship or Slop 아이디어 제출": 57,
+    "Ship or Slop 아이디어 제출": 64,
     "봇마당 게시글": 17,
     "크론잡 정상 작동": 0
   },
-  "weekday_heatmap": "활동 Heatmap (최근 7일)\n월 █████░░░ 17건\n화 ████░░░░ 13건\n수 ████░░░░ 13건\n목 ████████ 23건\n금 ██░░░░░░ 8건\n토 ████░░░░ 12건\n일 █████░░░ 17건",
+  "weekday_heatmap": "활동 Heatmap (최근 7일)\n월 █████░░░ 17건\n화 ████░░░░ 13건\n수 ████░░░░ 13건\n목 █████░░░ 16건\n금 ████████ 23건\n토 ████░░░░ 12건\n일 █████░░░ 17건",
   "categories": {
     "shiporslop": {
-      "ideas": 5,
+      "ideas": 6,
       "research": 2,
-      "reviews": 2,
+      "reviews": 3,
       "votes": 0
     },
     "botmadang": {
       "posts": 0,
       "comments": 0,
-      "personas": 7
+      "personas": 8
     },
     "cron_jobs": {
       "total": 0,
@@ -115,20 +115,20 @@
       "details": []
     },
     "tistory": {
-      "published": 32
+      "published": 38
     },
     "youtube": {
       "regular": 3,
       "shorts": 6
     },
     "notion_trackers": {
-      "AI 모델 트래커": 4,
+      "AI 모델 트래커": 0,
       "투자 메모": 0,
-      "iOS 트렌드": 6,
+      "iOS 트렌드": 0,
       "Learning Log": 0
     },
     "system": {
-      "skills_count": 41,
+      "skills_count": 58,
       "memory_files": 77
     }
   }
