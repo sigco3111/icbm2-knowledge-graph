@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-04-17 00:31 KST",
+  "generated_at": "2026-04-18 06:31 KST",
   "status": "주의",
   "status_msg": "일부 지표 주의 필요",
   "anomalies": [
     {
       "level": "warning",
-      "msg": "⚠️ 활동량 감소 감지: 오늘 8건 (7일 평균 34.4건의 50% 미만)"
+      "msg": "⚠️ 활동량 감소 감지: 오늘 1건 (7일 평균 34.1건의 50% 미만)"
     },
     {
       "level": "warning",
@@ -13,18 +13,18 @@
     }
   ],
   "insights": [
-    "📈 Ship or Slop 주간 추이: 전주 대비 +64건",
-    "🏆 가장 활발한 카테고리: Ship or Slop (11건)",
-    "💬 봇마당: 연속 3일 활동 기록",
-    "📝 Tistory: 누적 38개 발행"
+    "📈 Ship or Slop 주간 추이: 전주 대비 +65건",
+    "🏆 가장 활발한 카테고리: Ship or Slop (1건)",
+    "💬 봇마당: 연속 4일 활동 기록",
+    "📝 Tistory: 누적 57개 발행"
   ],
   "daily_targets": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "current": 6,
+      "current": 1,
       "target": 10,
-      "bar": "██████░░░░",
-      "pct": "60%"
+      "bar": "█░░░░░░░░░",
+      "pct": "10%"
     }
   ],
   "kpi_achievement": [
@@ -56,10 +56,10 @@
   "predictions": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "current": 64,
-      "predicted": 73,
+      "current": 65,
+      "predicted": 74,
       "target": 200,
-      "avg_daily": 9.1,
+      "avg_daily": 9.3,
       "note": "가속 필요"
     },
     {
@@ -67,14 +67,14 @@
       "current": 17,
       "predicted": 19,
       "target": 60,
-      "avg_daily": 2.4,
+      "avg_daily": 2.0,
       "note": "가속 필요"
     }
   ],
   "growth_rates": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "value": 64,
+      "value": 65,
       "mom": "N/A (첫 달)"
     },
     {
@@ -86,27 +86,27 @@
   "patterns": {
     "busiest_day": "월",
     "busiest_avg": 859.6,
-    "quietest_day": "토",
-    "quietest_avg": 284.0,
-    "balance": "가장 활발한 요일: 월 (평균 859.6건)\n가장 조용한 요일: 토 (평균 284.0건)\n균형형: 주중/주말 활동량 비슷 (1.3배)"
+    "quietest_day": "금",
+    "quietest_avg": 481.6,
+    "balance": "가장 활발한 요일: 월 (평균 859.6건)\n가장 조용한 요일: 금 (평균 481.6건)\n균형형: 주중/주말 활동량 비슷 (1.1배)"
   },
   "week_over_week": {
-    "Ship or Slop 아이디어 제출": 64,
-    "봇마당 게시글": 17,
+    "Ship or Slop 아이디어 제출": 65,
+    "봇마당 게시글": 14,
     "크론잡 정상 작동": 0
   },
-  "weekday_heatmap": "활동 Heatmap (최근 7일)\n월 █████░░░ 17건\n화 ████░░░░ 13건\n수 ████░░░░ 13건\n목 █████░░░ 16건\n금 ████████ 23건\n토 ████░░░░ 12건\n일 █████░░░ 17건",
+  "weekday_heatmap": "활동 Heatmap (최근 7일)\n월 █████░░░ 17건\n화 ████░░░░ 13건\n수 ████░░░░ 13건\n목 █████░░░ 16건\n금 █████░░░ 15건\n토 ████████ 23건\n일 █████░░░ 17건",
   "categories": {
     "shiporslop": {
-      "ideas": 6,
-      "research": 2,
-      "reviews": 3,
+      "ideas": 1,
+      "research": 0,
+      "reviews": 0,
       "votes": 0
     },
     "botmadang": {
       "posts": 0,
       "comments": 0,
-      "personas": 8
+      "personas": 9
     },
     "cron_jobs": {
       "total": 0,
@@ -115,7 +115,7 @@
       "details": []
     },
     "tistory": {
-      "published": 38
+      "published": 57
     },
     "youtube": {
       "regular": 3,
@@ -129,7 +129,7 @@
     },
     "system": {
       "skills_count": 58,
-      "memory_files": 77
+      "memory_files": 79
     }
   }
 }
