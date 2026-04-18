@@ -20,16 +20,24 @@ os.makedirs(DATA_DIR, exist_ok=True)
 # Category mapping
 CATEGORY_MAP = {}
 cat_items = {
-    "🔧 ICBM/에이전트": ["hermes_bot", "icbm2-workspace", "icbm-workspace", "icbm2-knowledge-graph"],
-    "📖 재무": ["bookk"],
-    "🛠 개발 도구": ["prompt-advisor", "ccusage-json", "yt-download"],
+    "🔧 ICBM/에이전트": [
+        "hermes_bot", "icbm2-workspace", "icbm-workspace", "icbm2-knowledge-graph",
+        "icbm2-skills-marketplace", "icbm2-intelligence-hub", "hermes-landing",
+        "ubob_pro_mcp", "ubob_a2a"
+    ],
+    "📖 재무": ["bookk", "upbit"],
+    "🛠 개발 도구": [
+        "prompt-advisor", "ccusage-json", "yt-download", "pdf_to_me",
+        "ConvertFormat", "rzweb", "repo-dna-analyzer", "git-constellation"
+    ],
     "📊 데이터 시각화": [
         "github-board", "github-board2", "cli-board", "hitel-board", "sys8-board",
         "win11-board", "winxp-board", "ubuntu-board", "mac-board", "steam-board",
         "space-board", "commodity-dashboard", "air-management", "world-bank-board",
         "satellite-board", "co2-board", "ip-board", "youtube-board", "token-meter",
         "tech-stack", "tech-toolkit-hub", "code-map", "json-flow", "ai-flowchart",
-        "codeviz-ai", "insight-pick", "fire-tribe-base"
+        "codeviz-ai", "insight-pick", "fire-tribe-base", "ai-agent-radar",
+        "skill-worldmap", "dev-trend-oracle", "earthquake"
     ],
     "🎮 게임": [
         "2048", "candy-crush-saga", "gostop", "one-card-game", "poker-king", "liquid-sort",
@@ -40,13 +48,22 @@ cat_items = {
         "terrarium", "world-box", "mount-and-blade", "department-tycoon", "pixel-farm-story",
         "dungeon-story", "real-estate-king", "capitalism-web", "grand-prix", "convenience24",
         "juice-tycoon", "3d-physics-lab", "predator", "iron-dome", "lightning-strike",
-        "earthquake", "stonks-9800", "ai-buy-sell", "decision-genie", "core-video-editor",
+        "stonks-9800", "ai-buy-sell", "decision-genie", "core-video-editor",
         "pixedit", "3d-fractal", "svg-converter", "core-image-converter", "text-sync-check",
-        "make-app-wiz", "google-script-wizard", "speech-recognition", "appscript_board",
-        "core-markdown-editor", "relationship-visualizer"
+        "make-app-wiz", "google-script-wizard", "appscript_board",
+        "core-markdown-editor", "relationship-visualizer",
+        "lifeGame", "geoPoly", "Tetris-am3d", "enterprise_ceo", "royal_secretary",
+        "Idle_RPG", "FootballClub", "Kingdoms3Lite", "ChampionMaker", "FireworksMaster",
+        "deckbuilder-adventure", "super-robot-lite", "kbo-manager", "3d-block-world-edit",
+        "stock-game", "stock-invest-game", "World_War_Simulator"
     ],
-    "🌐 웹 프로젝트": ["ubobtest", "KakaoSplit", "keyword_fighter", "DevCanvas", "pages", "blog",
-                        "astrocartography", "terrain", "world-data-map"]
+    "📱 iOS/macOS": ["ios_hyperclovax", "ubob_pro_lite"],
+    "🌐 웹 프로젝트": [
+        "ubobtest", "KakaoSplit", "keyword_fighter", "DevCanvas", "pages", "blog",
+        "astrocartography", "terrain", "world-data-map", "github-portfolio",
+        "artseedjs"
+    ],
+    "📋 기타": ["ai-image-generator", "jiah_ai1"]
 }
 for cat, names in cat_items.items():
     for name in names:
@@ -54,11 +71,12 @@ for cat, names in cat_items.items():
 
 # Keyword-based auto category recommendation
 KEYWORD_MAP = {
-    "🎮 게임": ["game", "게임"],
-    "📊 데이터 시각화": ["board", "dashboard", "chart", "시각화", "visualization"],
-    "🛠 개발 도구": ["tool", "editor", "converter", "도구"],
-    "🔧 ICBM/에이전트": ["icbm", "hermes", "agent", "에이전트"],
-    "📖 재무": ["bookk", "finance", "accounting", "재무"],
+    "🎮 게임": ["game", "게임", "rpg", "simulator", "시뮬레이션"],
+    "📊 데이터 시각화": ["board", "dashboard", "chart", "시각화", "visualization", "radar", "map"],
+    "🛠 개발 도구": ["tool", "editor", "converter", "도구", "analyzer"],
+    "🔧 ICBM/에이전트": ["icbm", "hermes", "에이전트"],
+    "📖 재무": ["bookk", "finance", "accounting", "재무", "stock", "주식"],
+    "📱 iOS/macOS": ["ios", "swift", "macos", "ipad", "iphone"],
 }
 
 def suggest_category(repo_name, repo_desc=""):
