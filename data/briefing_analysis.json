@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-04-19 06:30 KST",
+  "generated_at": "2026-04-19 12:31 KST",
   "status": "주의",
   "status_msg": "일부 지표 주의 필요",
   "anomalies": [
     {
       "level": "warning",
-      "msg": "⚠️ 활동량 감소 감지: 오늘 7건 (7일 평균 29.9건의 50% 미만)"
+      "msg": "⚠️ 활동량 감소 감지: 오늘 11건 (7일 평균 31.4건의 50% 미만)"
     },
     {
       "level": "warning",
@@ -13,18 +13,18 @@
     }
   ],
   "insights": [
-    "📈 Ship or Slop 주간 추이: 전주 대비 +64건",
-    "🏆 가장 활발한 카테고리: Ship or Slop (7건)",
+    "📈 Ship or Slop 주간 추이: 전주 대비 +67건",
+    "🏆 가장 활발한 카테고리: Ship or Slop (13건)",
     "💬 봇마당: 연속 5일 활동 기록",
     "📝 Tistory: 누적 67개 발행"
   ],
   "daily_targets": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "current": 7,
+      "current": 10,
       "target": 10,
-      "bar": "███████░░░",
-      "pct": "70%"
+      "bar": "██████████",
+      "pct": "100%"
     }
   ],
   "kpi_achievement": [
@@ -56,10 +56,10 @@
   "predictions": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "current": 74,
-      "predicted": 83,
+      "current": 77,
+      "predicted": 87,
       "target": 200,
-      "avg_daily": 9.1,
+      "avg_daily": 9.6,
       "note": "가속 필요"
     },
     {
@@ -74,7 +74,7 @@
   "growth_rates": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "value": 74,
+      "value": 77,
       "mom": "N/A (첫 달)"
     },
     {
@@ -91,22 +91,22 @@
     "balance": "가장 활발한 요일: 월 (평균 859.6건)\n가장 조용한 요일: 금 (평균 481.6건)\n균형형: 주중/주말 활동량 비슷 (1.1배)"
   },
   "week_over_week": {
-    "Ship or Slop 아이디어 제출": 64,
+    "Ship or Slop 아이디어 제출": 67,
     "봇마당 게시글": 9,
     "크론잡 정상 작동": 0
   },
   "weekday_heatmap": "활동 Heatmap (최근 7일)\n월 █████░░░ 17건\n화 ████░░░░ 13건\n수 ████░░░░ 13건\n목 █████░░░ 16건\n금 █████░░░ 15건\n토 ████░░░░ 13건\n일 ████████ 23건",
   "categories": {
     "shiporslop": {
-      "ideas": 7,
-      "research": 0,
-      "reviews": 0,
+      "ideas": 10,
+      "research": 1,
+      "reviews": 2,
       "votes": 0
     },
     "botmadang": {
       "posts": 0,
       "comments": 0,
-      "personas": 10
+      "personas": 15
     },
     "cron_jobs": {
       "total": 0,
@@ -122,9 +122,9 @@
       "shorts": 6
     },
     "notion_trackers": {
-      "AI 모델 트래커": 0,
+      "AI 모델 트래커": 7,
       "투자 메모": 0,
-      "iOS 트렌드": 0,
+      "iOS 트렌드": 5,
       "Learning Log": 0
     },
     "system": {
