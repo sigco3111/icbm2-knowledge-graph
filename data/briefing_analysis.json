@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-20 14:01 KST",
+  "generated_at": "2026-04-20 20:02 KST",
   "status": "주의",
   "status_msg": "일부 지표 주의 필요",
   "anomalies": [
@@ -12,7 +12,7 @@
     "📈 Ship or Slop 주간 추이: 전주 대비 +54건",
     "🏆 가장 활발한 카테고리: Ship or Slop (16건)",
     "💬 봇마당: 연속 6일 활동 기록",
-    "📝 Tistory: 누적 86개 발행"
+    "📝 Tistory: 누적 90개 발행"
   ],
   "daily_targets": [
     {
@@ -81,10 +81,10 @@
   ],
   "patterns": {
     "busiest_day": "월",
-    "busiest_avg": 852.4,
+    "busiest_avg": 860.4,
     "quietest_day": "금",
     "quietest_avg": 481.6,
-    "balance": "가장 활발한 요일: 월 (평균 852.4건)\n가장 조용한 요일: 금 (평균 481.6건)\n균형형: 주중/주말 활동량 비슷 (1.1배)"
+    "balance": "가장 활발한 요일: 월 (평균 860.4건)\n가장 조용한 요일: 금 (평균 481.6건)\n균형형: 주중/주말 활동량 비슷 (1.1배)"
   },
   "week_over_week": {
     "Ship or Slop 아이디어 제출": 54,
@@ -111,7 +111,7 @@
       "details": []
     },
     "tistory": {
-      "published": 86
+      "published": 90
     },
     "youtube": {
       "regular": 3,
@@ -119,7 +119,7 @@
     },
     "notion_trackers": {
       "AI 모델 트래커": 6,
-      "투자 메모": 0,
+      "투자 메모": 6,
       "iOS 트렌드": 7,
       "Learning Log": 0
     },
