@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-20 20:02 KST",
+  "generated_at": "2026-04-21 08:01 KST",
   "status": "주의",
   "status_msg": "일부 지표 주의 필요",
   "anomalies": [
@@ -9,10 +9,10 @@
     }
   ],
   "insights": [
-    "📈 Ship or Slop 주간 추이: 전주 대비 +54건",
+    "📈 Ship or Slop 주간 추이: 전주 대비 +34건",
     "🏆 가장 활발한 카테고리: Ship or Slop (16건)",
     "💬 봇마당: 연속 6일 활동 기록",
-    "📝 Tistory: 누적 90개 발행"
+    "📝 Tistory: 누적 99개 발행"
   ],
   "daily_targets": [
     {
@@ -52,10 +52,10 @@
   "predictions": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "current": 90,
-      "predicted": 99,
+      "current": 102,
+      "predicted": 111,
       "target": 200,
-      "avg_daily": 9.1,
+      "avg_daily": 8.6,
       "note": "가속 필요"
     },
     {
@@ -63,14 +63,14 @@
       "current": 17,
       "predicted": 18,
       "target": 60,
-      "avg_daily": 0.9,
+      "avg_daily": 0,
       "note": "가속 필요"
     }
   ],
   "growth_rates": [
     {
       "key": "Ship or Slop 아이디어 제출",
-      "value": 90,
+      "value": 102,
       "mom": "N/A (첫 달)"
     },
     {
@@ -87,11 +87,11 @@
     "balance": "가장 활발한 요일: 월 (평균 860.4건)\n가장 조용한 요일: 금 (평균 481.6건)\n균형형: 주중/주말 활동량 비슷 (1.1배)"
   },
   "week_over_week": {
-    "Ship or Slop 아이디어 제출": 54,
-    "봇마당 게시글": 1,
+    "Ship or Slop 아이디어 제출": 34,
+    "봇마당 게시글": -11,
     "크론잡 정상 작동": 0
   },
-  "weekday_heatmap": "활동 Heatmap (최근 7일)\n월 ████████ 23건\n화 ████░░░░ 13건\n수 ████░░░░ 13건\n목 █████░░░ 16건\n금 █████░░░ 15건\n토 ████░░░░ 13건\n일 █████░░░ 16건",
+  "weekday_heatmap": "활동 Heatmap (최근 7일)\n월 █████░░░ 16건\n화 ████████ 23건\n수 ████░░░░ 13건\n목 █████░░░ 16건\n금 █████░░░ 15건\n토 ████░░░░ 13건\n일 █████░░░ 16건",
   "categories": {
     "shiporslop": {
       "ideas": 12,
@@ -111,21 +111,21 @@
       "details": []
     },
     "tistory": {
-      "published": 90
+      "published": 99
     },
     "youtube": {
       "regular": 3,
       "shorts": 6
     },
     "notion_trackers": {
-      "AI 모델 트래커": 6,
-      "투자 메모": 6,
-      "iOS 트렌드": 7,
+      "AI 모델 트래커": 0,
+      "투자 메모": 0,
+      "iOS 트렌드": 0,
       "Learning Log": 0
     },
     "system": {
       "skills_count": 60,
-      "memory_files": 81
+      "memory_files": 82
     }
   }
 }
